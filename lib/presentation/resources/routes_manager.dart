@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pips_flutter/presentation/login/login.dart';
 import 'package:pips_flutter/presentation/onboarding/onboarding.dart';
 import 'package:pips_flutter/presentation/splash/splash.dart';
-import 'package:pips_flutter/presentation/strings_manager.dart';
+import 'package:pips_flutter/presentation/resources/strings_manager.dart';
 
 class Routes {
   static const String splashRoute = "/";

@@ -42,4 +42,13 @@ class AppStrings {
   static const String loading = 'Loading';
   static const String ok = "OK";
   static const String success = 'Success';
+
+  // appBarTitles
+  static const String homeTitle = 'Home';
+  static const String searchTitle = 'Search';
+  static const String notificationsTitle = 'Notifications';
+  static const String settingsTitle = 'Settings';
+
+  // sectionTitle
+  static const String statusOfSubmission = 'Status of Submission';
 }

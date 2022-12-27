@@ -9,4 +9,8 @@ abstract class Repository {
 
   Future<Either<Failure, ForgotPassword>> sendPasswordResetEmail(
       ForgotPasswordRequest forgotPasswordRequest);
+
+  Future<Either<Failure, Dashboard>> dashboard();
+
+  Future<Either<Failure, List<NotificationItem>>> getNotifications();
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:pips_flutter/domain/model/model.dart';
 import 'package:pips_flutter/domain/usecase/login_usecase.dart';
 import 'package:pips_flutter/presentation/base/baseviewmodel.dart';
 import 'package:pips_flutter/presentation/common/freezed_data_classes.dart';
@@ -20,7 +21,7 @@ class LoginViewModel extends BaseViewModel
 
   // not private
   final StreamController isUserLoggedInSuccessfullyStreamController =
-      StreamController<bool>();
+      StreamController<String>();
 
   var loginObject = LoginObject("", ""); // data class?
 
@@ -55,11 +56,13 @@ class LoginViewModel extends BaseViewModel
         inputState
             .add(ErrorState(StateRendererType.popupErrorState, failure.message))
       },
-      (data) => {
+      (Authentication data) => {
         // success
+        print("response data $data"),
         inputState.add(ContentState()),
         // navigate to maincreen after login
-        isUserLoggedInSuccessfullyStreamController.add(true),
+        isUserLoggedInSuccessfullyStreamController
+            .add(data.accessToken.toString()),
       },
     );
   }

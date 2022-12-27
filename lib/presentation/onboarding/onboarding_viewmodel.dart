@@ -36,7 +36,7 @@ class OnBoardingViewModel extends BaseViewModel
     if (nextIndex >= _list.length) {
       _currentIndex = 0;
     }
-
+    _postDataToView();
     return _currentIndex;
   }
 
@@ -48,7 +48,7 @@ class OnBoardingViewModel extends BaseViewModel
     if (previousIndex == -1) {
       _currentIndex = _list.length - 1;
     }
-
+    _postDataToView();
     return _currentIndex;
   }
 

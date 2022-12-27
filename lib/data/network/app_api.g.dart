@@ -68,6 +68,50 @@ class _AppServiceClient implements AppServiceClient {
     return value;
   }
 
+  @override
+  Future<DashboardResponse> dashboard() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<DashboardResponse>(Options(
+      method: 'GET',
+      headers: <String, dynamic>{},
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/dashboard',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = DashboardResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<NotificationsResponse> getNotifications() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<NotificationsResponse>(Options(
+      method: 'GET',
+      headers: <String, dynamic>{},
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/auth/notifications',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = NotificationsResponse.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

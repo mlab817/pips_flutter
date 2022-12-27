@@ -41,3 +41,43 @@ class DeviceInfo {
 
   DeviceInfo(this.name, this.identifier, this.version);
 }
+
+class Dashboard {
+  List<PipsStatus> pipsStatuses;
+  int total;
+  int validated;
+  int endorsed;
+
+  Dashboard(this.pipsStatuses, this.total, this.validated, this.endorsed);
+}
+
+class PipsStatus {
+  int id;
+  String name;
+  String color;
+  String description;
+  int projects_count;
+
+  PipsStatus(this.id, this.name, this.color, this.description,
+      this.projects_count);
+}
+
+class NotificationItem {
+  String id;
+
+  NotificationData data;
+
+  dynamic createdAt;
+
+  NotificationItem(this.id, this.data, this.createdAt);
+}
+
+class NotificationData {
+  String sender;
+
+  String subject;
+
+  String message;
+
+  NotificationData(this.subject, this.sender, this.message);
+}

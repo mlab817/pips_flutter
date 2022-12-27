@@ -31,6 +31,8 @@ class _LoginViewState extends State<LoginView> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  bool _obscurePassword = true;
+
   // bind the view to the viewModel
   _bind() {
     _viewModel.start();
@@ -39,8 +41,9 @@ class _LoginViewState extends State<LoginView> {
     _passwordController
         .addListener(() => _viewModel.setPassword(_passwordController.text));
     _viewModel.isUserLoggedInSuccessfullyStreamController.stream
-        .listen((isSuccessfullyLoggedIn) {
+        .listen((token) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
+        _appPreferences.setUserToken(token);
         _appPreferences.setIsUserLoggedIn();
         Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
       });
@@ -122,13 +125,23 @@ class _LoginViewState extends State<LoginView> {
                     return TextFormField(
                       keyboardType: TextInputType.visiblePassword,
                       controller: _passwordController,
-                      obscureText: true,
+                      obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         hintText: AppStrings.passwordLabelText,
                         labelText: AppStrings.passwordLabelText,
                         errorText: (snapshot.data ?? true)
                             ? null
                             : AppStrings.passwordErrorText,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                          icon: Icon(_obscurePassword
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                        ),
                       ),
                     );
                   },

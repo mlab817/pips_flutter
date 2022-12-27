@@ -7,6 +7,10 @@ abstract class RemoteDataSource {
 
   Future<ForgotPasswordResponse> sendResetPasswordEmail(
       ForgotPasswordRequest forgotPasswordRequest);
+
+  Future<DashboardResponse> dashboard();
+
+  Future<NotificationsResponse> getNotifications();
 }
 
 class RemoteDataSourceImplementer implements RemoteDataSource {
@@ -28,5 +32,15 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
     return await _appServiceClient.sendPasswordResetEmail(
       forgotPasswordRequest.email,
     );
+  }
+
+  @override
+  Future<DashboardResponse> dashboard() async {
+    return await _appServiceClient.dashboard();
+  }
+
+  @override
+  Future<NotificationsResponse> getNotifications() async {
+    return await _appServiceClient.getNotifications();
   }
 }

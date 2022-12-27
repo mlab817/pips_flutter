@@ -5,6 +5,7 @@ const String prefsKeyLang = "PREFS_KEY_LANG";
 const String prefsKeyOnboardingScreen = "PREFS_KEY_ONBOARDING_SCREEN";
 // isUserLoggedIn is stored in app preferences
 const String prefsKeyIsUserLoggedIn = "PREFS_KEY_IS_USER_LOGGED_IN";
+const String prefsKeyBearerToken = "PREFS_KEY_BEARER_TOKEN";
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
@@ -37,6 +38,17 @@ class AppPreferences {
 
   Future<bool> isUserLoggedIn() async {
     return _sharedPreferences.getBool(prefsKeyIsUserLoggedIn) ?? false;
-    // return false;
+  }
+
+  Future<void> setUserToken(String token) async {
+    _sharedPreferences.setString(prefsKeyBearerToken, token);
+  }
+
+  Future<String> getUserToken() async {
+    return _sharedPreferences.getString(prefsKeyBearerToken) ?? "";
+  }
+
+  Future<void> logout() async {
+    _sharedPreferences.remove(prefsKeyIsUserLoggedIn);
   }
 }

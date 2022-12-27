@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:pips_flutter/presentation/home/home.dart';
-import 'package:pips_flutter/presentation/notifications/notifications.dart';
-import 'package:pips_flutter/presentation/resources/color_manager.dart';
-import 'package:pips_flutter/presentation/resources/values_manager.dart';
-import 'package:pips_flutter/presentation/settings/settings.dart';
 
-import '../search/search.dart';
+import 'package:pips_flutter/app/app_prefs.dart';
+import 'package:pips_flutter/app/dependency_injection.dart';
+import 'package:pips_flutter/presentation/main/home/home.dart';
+import 'package:pips_flutter/presentation/main/notifications/notifications.dart';
+import 'package:pips_flutter/presentation/main/search/search.dart';
+import 'package:pips_flutter/presentation/main/settings/settings.dart';
+import 'package:pips_flutter/presentation/resources/color_manager.dart';
+import 'package:pips_flutter/presentation/resources/routes_manager.dart';
+import 'package:pips_flutter/presentation/resources/strings_manager.dart';
+import 'package:pips_flutter/presentation/resources/values_manager.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -15,6 +19,8 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
+  final AppPreferences _appPreferences = instance<AppPreferences>();
+
   final List<Widget> _pages = [
     const HomePage(),
     const SearchPage(),
@@ -23,10 +29,10 @@ class _MainViewState extends State<MainView> {
   ];
 
   final List<String> _titles = [
-    'Home',
-    'Search',
-    'Notifications',
-    'Settings',
+    AppStrings.homeTitle,
+    AppStrings.searchTitle,
+    AppStrings.notificationsTitle,
+    AppStrings.settingsTitle,
   ];
 
   int _currentIndex = 0;
@@ -38,40 +44,54 @@ class _MainViewState extends State<MainView> {
       appBar: AppBar(
         title: Text(_titles[_currentIndex]),
         elevation: 0.0,
-        actions: const [
-          Icon(Icons.logout),
-          SizedBox(
+        actions: <Widget>[
+          IconButton(
+            onPressed: _logout,
+            icon: const Icon(Icons.logout),
+          ),
+          const SizedBox(
             width: AppSize.s12,
           ),
         ],
       ),
       body: _pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: ColorManager.primary,
-        unselectedItemColor: ColorManager.grey,
-        showUnselectedLabels: true,
-        type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            label: _titles[0],
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.search),
-            label: _titles[1],
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.notifications),
-            label: _titles[2],
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.settings),
-            label: _titles[3],
-          ),
-        ],
-        currentIndex: _currentIndex,
-        onTap: _onTap,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: ColorManager.lightGrey,
+              spreadRadius: AppSize.s1,
+            ),
+          ],
+        ),
+        child: BottomNavigationBar(
+          selectedItemColor: ColorManager.primary,
+          unselectedItemColor: ColorManager.grey,
+          showUnselectedLabels: true,
+          type: BottomNavigationBarType.fixed,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.home),
+              label: _titles[0],
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.search),
+              label: _titles[1],
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.notifications),
+              label: _titles[2],
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.settings),
+              label: _titles[3],
+            ),
+          ],
+          currentIndex: _currentIndex,
+          onTap: _onTap,
+        ),
       ),
+      floatingActionButton: _buildFloatingActionButton(),
     );
   }
 
@@ -79,5 +99,24 @@ class _MainViewState extends State<MainView> {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  void _logout() {
+    _appPreferences.logout();
+
+    Navigator.pushReplacementNamed(context, Routes.loginRoute);
+  }
+
+  Widget? _buildFloatingActionButton() {
+    // if currently at home page, show FAB
+    if (_currentIndex == 0) {
+      return FloatingActionButton(
+        onPressed: null,
+        backgroundColor: ColorManager.primary,
+        child: const Icon(Icons.add),
+      );
+    } else {
+      return null;
+    }
   }
 }

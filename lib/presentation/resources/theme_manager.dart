@@ -120,6 +120,7 @@ ThemeData getApplicationTheme() {
           Radius.circular(AppSize.s8),
         ),
       ),
+      suffixIconColor: ColorManager.lightGrey,
     ),
   );
 }

@@ -24,10 +24,12 @@ class DioFactory {
 
     String language = await _appPreferences.getAppLanguage();
 
+    String token = await _appPreferences.getUserToken();
+
     Map<String, String> headers = {
       contentType: applicationJson,
       accept: applicationJson,
-      authorization: "$bearer ${Constant.token}",
+      authorization: "$bearer $token",
       defaultLanguage: language, // TODO: get lang from app prefs
     };
 

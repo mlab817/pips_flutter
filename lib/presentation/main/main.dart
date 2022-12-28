@@ -4,6 +4,7 @@ import 'package:pips_flutter/app/app_prefs.dart';
 import 'package:pips_flutter/app/dependency_injection.dart';
 import 'package:pips_flutter/presentation/main/home/home.dart';
 import 'package:pips_flutter/presentation/main/notifications/notifications.dart';
+import 'package:pips_flutter/presentation/main/projects/projects.dart';
 import 'package:pips_flutter/presentation/main/search/search.dart';
 import 'package:pips_flutter/presentation/main/settings/settings.dart';
 import 'package:pips_flutter/presentation/resources/color_manager.dart';
@@ -23,6 +24,7 @@ class _MainViewState extends State<MainView> {
 
   final List<Widget> _pages = [
     const HomePage(),
+    const ProjectsPage(),
     const SearchPage(),
     const NotificationsPage(),
     const SettingsPage(),
@@ -30,6 +32,7 @@ class _MainViewState extends State<MainView> {
 
   final List<String> _titles = [
     AppStrings.homeTitle,
+    AppStrings.projectsTitle,
     AppStrings.searchTitle,
     AppStrings.notificationsTitle,
     AppStrings.settingsTitle,
@@ -50,7 +53,7 @@ class _MainViewState extends State<MainView> {
             icon: const Icon(Icons.logout),
           ),
           const SizedBox(
-            width: AppSize.s12,
+            width: AppSize.s1_5,
           ),
         ],
       ),
@@ -75,16 +78,20 @@ class _MainViewState extends State<MainView> {
               label: _titles[0],
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.search),
+              icon: const Icon(Icons.view_module),
               label: _titles[1],
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.notifications),
+              icon: const Icon(Icons.search),
               label: _titles[2],
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.settings),
+              icon: const Icon(Icons.notifications),
               label: _titles[3],
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.settings),
+              label: _titles[4],
             ),
           ],
           currentIndex: _currentIndex,

@@ -5,7 +5,7 @@ class ColorManager {
   static Color darkGrey = HexColor.fromHex("#525252");
   static Color grey = HexColor.fromHex("#737477");
   static Color lightGrey = HexColor.fromHex("#9E9E9E");
-  static Color blueGrey = HexColor.fromHex('#E0EFFF');
+  static Color lightOrange = HexColor.fromHex('#FFF6CF');
   static Color darkPrimary = HexColor.fromHex("#D17D11");
   static Color grey1 = HexColor.fromHex("#707070");
   static Color grey2 = HexColor.fromHex("#797979");

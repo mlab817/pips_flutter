@@ -6,12 +6,14 @@ import 'package:pips_flutter/domain/usecase/dashboard_usecase.dart';
 import 'package:pips_flutter/presentation/base/baseviewmodel.dart';
 import 'package:pips_flutter/presentation/common/state_renderer/state_renderer.dart';
 import 'package:pips_flutter/presentation/common/state_renderer/state_renderer_implementation.dart';
+import 'package:rxdart/rxdart.dart';
 
 class HomeViewModel extends BaseViewModel
     with HomeViewModelInputs, HomeViewModelOutputs {
   final DashboardUseCase _dashboardUseCase;
 
-  final StreamController _dashboardStreamController = StreamController();
+  final StreamController _dashboardStreamController =
+      BehaviorSubject<Dashboard>();
 
   HomeViewModel(this._dashboardUseCase);
 

@@ -58,53 +58,49 @@ class _NotificationsPageState extends State<NotificationsPage> {
     if (notificationObject != null) {
       List<NotificationItem> notifications = notificationObject.notifications;
 
-      return ListView.builder(
-          itemCount: notifications.length,
-          itemBuilder: (context, index) {
-            NotificationItem item = notifications[index];
+      return ListView.separated(
+        itemCount: notifications.length,
+        itemBuilder: (context, index) {
+          NotificationItem item = notifications[index];
 
-            // if sender is more than 2 characters, trim to 2
-            final sender = item.data.sender.length > 2
-                ? item.data.sender.substring(0, 2).toUpperCase()
-                : item.data.sender.toUpperCase();
+          // if sender is more than 2 characters, trim to 2
+          final sender = item.data.sender.length > 2
+              ? item.data.sender.substring(0, 2).toUpperCase()
+              : item.data.sender.toUpperCase();
 
-            return Container(
-              padding: const EdgeInsets.only(
-                top: AppPadding.p8,
-              ),
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: ColorManager.grey,
-                    width: AppSize.s1_5,
+          return Container(
+            padding: const EdgeInsets.only(
+              top: AppPadding.p8,
+            ),
+            child: ListTile(
+              leading: CircleAvatar(
+                child: Text(
+                  sender,
+                  style: getBoldStyle(
+                    color: ColorManager.white,
                   ),
                 ),
               ),
-              child: ListTile(
-                leading: CircleAvatar(
-                  child: Text(
-                    sender,
-                    style: getBoldStyle(
-                      color: ColorManager.white,
-                    ),
-                  ),
-                ),
-                title: Text(
-                  item.data.message,
-                  style: getLightStyle(
-                    color: ColorManager.black,
-                  ),
-                ),
-                trailing: Text(
-                  item.createdAt.timeAgo(),
-                  style: TextStyle(
-                    fontSize: 8.0,
-                    color: ColorManager.lightGrey,
-                  ),
+              title: Text(
+                item.data.message,
+                style: getLightStyle(
+                  color: ColorManager.black,
                 ),
               ),
-            );
-          });
+              trailing: Text(
+                item.createdAt.toString(),
+                style: TextStyle(
+                  fontSize: 8.0,
+                  color: ColorManager.lightGrey,
+                ),
+              ),
+            ),
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider();
+        },
+      );
     } else {
       return Container();
     }

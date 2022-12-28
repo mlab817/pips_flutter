@@ -174,3 +174,138 @@ class NotificationDataResponse {
 
   Map<String, dynamic> toJson() => _$NotificationDataResponseToJson(this);
 }
+
+@JsonSerializable()
+class ProjectsResponse {
+  @JsonKey(name: "data")
+  List<ProjectResponse> data;
+
+  @JsonKey(name: "meta")
+  ProjectsMetaResponse meta;
+
+  ProjectsResponse(this.data, this.meta);
+
+  factory ProjectsResponse.fromJson(Map<String, dynamic> json) =>
+      _$ProjectsResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProjectsResponseToJson(this);
+}
+
+@JsonSerializable()
+class ProjectsMetaResponse {
+  @JsonKey(name: "pagination")
+  ProjectsMetaPaginationResponse pagination;
+
+  ProjectsMetaResponse(this.pagination);
+
+  factory ProjectsMetaResponse.fromJson(Map<String, dynamic> json) =>
+      _$ProjectsMetaResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProjectsMetaResponseToJson(this);
+}
+
+@JsonSerializable()
+class ProjectsMetaPaginationResponse {
+  @JsonKey(name: "total")
+  int? total;
+
+  @JsonKey(name: "pageSize")
+  int? pageSize;
+
+  @JsonKey(name: "current")
+  int? current;
+
+  @JsonKey(name: "last")
+  int? last;
+
+  ProjectsMetaPaginationResponse(
+      this.total, this.pageSize, this.current, this.last);
+
+  factory ProjectsMetaPaginationResponse.fromJson(Map<String, dynamic> json) =>
+      _$ProjectsMetaPaginationResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProjectsMetaPaginationResponseToJson(this);
+}
+
+@JsonSerializable()
+class ProjectResponse {
+  @JsonKey(name: "key")
+  String? key;
+
+  @JsonKey(name: "uuid")
+  String? uuid;
+
+  @JsonKey(name: "title")
+  String? title;
+
+  @JsonKey(name: "office")
+  OfficeResponse? office;
+
+  @JsonKey(name: "permission")
+  PermissionResponse? permission;
+
+  @JsonKey(name: "is_locked")
+  bool? isLocked;
+
+  ProjectResponse(this.key, this.uuid, this.title, this.office, this.permission,
+      this.isLocked);
+
+  factory ProjectResponse.fromJson(Map<String, dynamic> json) =>
+      _$ProjectResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProjectResponseToJson(this);
+}
+
+@JsonSerializable()
+class OfficeResponse {
+  @JsonKey(name: "name")
+  String? name;
+
+  @JsonKey(name: "acronym")
+  String? acronym;
+
+  @JsonKey(name: "color")
+  String? color;
+
+  OfficeResponse(this.name, this.acronym, this.color);
+
+  factory OfficeResponse.fromJson(Map<String, dynamic> json) =>
+      _$OfficeResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OfficeResponseToJson(this);
+}
+
+@JsonSerializable()
+class PermissionResponse {
+  @JsonKey(name: "view")
+  bool? view;
+
+  @JsonKey(name: "update")
+  bool? update;
+
+  @JsonKey(name: "delete")
+  bool? delete;
+
+  @JsonKey(name: "lock")
+  bool? lock;
+
+  @JsonKey(name: "unlock")
+  bool? unlock;
+
+  @JsonKey(name: "validate")
+  bool? validate;
+
+  @JsonKey(name: "drop")
+  bool? drop;
+
+  @JsonKey(name: "updatePipol")
+  bool? updatePipol;
+
+  PermissionResponse(this.view, this.update, this.delete, this.lock,
+      this.unlock, this.validate, this.drop, this.updatePipol);
+
+  factory PermissionResponse.fromJson(Map<String, dynamic> json) =>
+      _$PermissionResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PermissionResponseToJson(this);
+}

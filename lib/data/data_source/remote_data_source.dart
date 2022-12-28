@@ -11,6 +11,8 @@ abstract class RemoteDataSource {
   Future<DashboardResponse> dashboard();
 
   Future<NotificationsResponse> getNotifications();
+
+  Future<ProjectsResponse> getProjects();
 }
 
 class RemoteDataSourceImplementer implements RemoteDataSource {
@@ -42,5 +44,10 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
   @override
   Future<NotificationsResponse> getNotifications() async {
     return await _appServiceClient.getNotifications();
+  }
+
+  @override
+  Future<ProjectsResponse> getProjects() async {
+    return await _appServiceClient.getProjects();
   }
 }

@@ -13,4 +13,6 @@ abstract class Repository {
   Future<Either<Failure, Dashboard>> dashboard();
 
   Future<Either<Failure, List<NotificationItem>>> getNotifications();
+
+  Future<Either<Failure, Projects>> getProjects();
 }

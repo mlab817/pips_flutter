@@ -30,29 +30,27 @@ class _SplashViewState extends State<SplashView> {
 
   // redirect user based on status isUserLoggedIn
   void _goNext() {
-    _appPreferences.isUserLoggedIn().then((isUserLoggedIn) =>
-    {
-      if (isUserLoggedIn)
-        {Navigator.pushReplacementNamed(context, Routes.mainRoute)}
-      else
-        {
-          _appPreferences
-              .isOnBoardingScreenViewed()
-              .then((isOnBoardingScreenViewed) =>
-          {
-            if (isOnBoardingScreenViewed)
-              {
-                Navigator.pushReplacementNamed(
-                    context, Routes.loginRoute)
-              }
-            else
-              {
-                Navigator.pushReplacementNamed(
-                    context, Routes.onBoardingRoute)
-              }
-          })
-        }
-    });
+    _appPreferences.isUserLoggedIn().then((isUserLoggedIn) => {
+          if (isUserLoggedIn)
+            {Navigator.pushReplacementNamed(context, Routes.mainRoute)}
+          else
+            {
+              _appPreferences
+                  .isOnBoardingScreenViewed()
+                  .then((isOnBoardingScreenViewed) => {
+                        if (isOnBoardingScreenViewed)
+                          {
+                            Navigator.pushReplacementNamed(
+                                context, Routes.loginRoute)
+                          }
+                        else
+                          {
+                            Navigator.pushReplacementNamed(
+                                context, Routes.onBoardingRoute)
+                          }
+                      })
+            }
+        });
   }
 
   @override

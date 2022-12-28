@@ -17,8 +17,8 @@ class RepositoryImplementer extends Repository {
   final LocalDataSource _localDataSource;
   final NetworkInfo _networkInfo;
 
-  RepositoryImplementer(
-      this._remoteDataSource, this._localDataSource, this._networkInfo);
+  RepositoryImplementer(this._remoteDataSource, this._localDataSource,
+      this._networkInfo);
 
   @override
   Future<Either<Failure, Authentication>> login(
@@ -26,11 +26,13 @@ class RepositoryImplementer extends Repository {
     if (await _networkInfo.isConnected) {
       try {
         final AuthenticationResponse response =
-            await _remoteDataSource.login(loginRequest);
+        await _remoteDataSource.login(loginRequest);
 
         return Right(response.toDomain());
       } catch (error) {
-        return Left(ErrorHandler.handle(error).failure);
+        return Left(ErrorHandler
+            .handle(error)
+            .failure);
       }
     } else {
       // abort call
@@ -48,7 +50,9 @@ class RepositoryImplementer extends Repository {
 
         return Right(response.toDomain());
       } catch (error) {
-        return Left(ErrorHandler.handle(error).failure);
+        return Left(ErrorHandler
+            .handle(error)
+            .failure);
       }
     } else {
       // abort call
@@ -64,7 +68,9 @@ class RepositoryImplementer extends Repository {
 
         return Right(response.toDomain());
       } catch (error) {
-        return Left(ErrorHandler.handle(error).failure);
+        return Left(ErrorHandler
+            .handle(error)
+            .failure);
       }
     } else {
       return Left(DataSource.noInternetCorrection.getFailure());
@@ -76,11 +82,30 @@ class RepositoryImplementer extends Repository {
     if (await _networkInfo.isConnected) {
       try {
         final NotificationsResponse response =
-            await _remoteDataSource.getNotifications();
+        await _remoteDataSource.getNotifications();
 
         return Right(response.toDomain());
       } catch (error) {
-        return Left(ErrorHandler.handle(error).failure);
+        return Left(ErrorHandler
+            .handle(error)
+            .failure);
+      }
+    } else {
+      return Left(DataSource.noInternetCorrection.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Projects>> getProjects() async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final ProjectsResponse response = await _remoteDataSource.getProjects();
+
+        return Right(response.toDomain());
+      } catch (error) {
+        return Left(ErrorHandler
+            .handle(error)
+            .failure);
       }
     } else {
       return Left(DataSource.noInternetCorrection.getFailure());

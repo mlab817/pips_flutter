@@ -6,6 +6,11 @@ const String prefsKeyOnboardingScreen = "PREFS_KEY_ONBOARDING_SCREEN";
 // isUserLoggedIn is stored in app preferences
 const String prefsKeyIsUserLoggedIn = "PREFS_KEY_IS_USER_LOGGED_IN";
 const String prefsKeyBearerToken = "PREFS_KEY_BEARER_TOKEN";
+const String prefsKeyUserCredentialsStored = "PREFS_KEY_USER_CREDENTIALS";
+const String prefsKeyUserCredentialsUsername =
+    "PREFS_KEY_USER_CREDENTIALS_USERNAME";
+const String prefsKeyUserCredentialsPassword =
+    "PREFS_KEY_USER_CREDENTIALS_PASSWORD";
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
@@ -48,7 +53,23 @@ class AppPreferences {
     return _sharedPreferences.getString(prefsKeyBearerToken) ?? "";
   }
 
+  // remove token and remove user log in
   Future<void> logout() async {
+    _sharedPreferences.remove(prefsKeyBearerToken);
     _sharedPreferences.remove(prefsKeyIsUserLoggedIn);
+  }
+
+  // store user credentials
+  Future<void> storeCredentials(String username, String password) async {
+    _sharedPreferences.setString(prefsKeyUserCredentialsUsername, username);
+    _sharedPreferences.setString(prefsKeyUserCredentialsPassword, password);
+    _sharedPreferences.setBool(prefsKeyUserCredentialsStored, true);
+  }
+
+  // remove user credentials
+  Future<void> removeCredentials() async {
+    _sharedPreferences.remove(prefsKeyUserCredentialsUsername);
+    _sharedPreferences.remove(prefsKeyUserCredentialsPassword);
+    _sharedPreferences.remove(prefsKeyUserCredentialsStored);
   }
 }

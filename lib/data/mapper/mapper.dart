@@ -79,6 +79,58 @@ extension NotificationItemMapper on NotificationItemResponse {
         data?.sender?.orEmpty() ?? EMPTY,
         data?.message?.orEmpty() ?? EMPTY);
 
-    return NotificationItem(id!, notificationData, createdAt);
+    return NotificationItem(
+        id?.orEmpty() ?? EMPTY, notificationData, createdAt);
+  }
+}
+
+extension ProjectsResponseMapper on ProjectsResponse {
+  Projects toDomain() {
+    List<Project> projects =
+        data.map((project) => project.toDomain()).cast<Project>().toList();
+
+    return Projects(projects, meta.toDomain());
+  }
+}
+
+extension ProjectsMetaResponseMapper on ProjectsMetaResponse {
+  Meta toDomain() {
+    return Meta(pagination.toDomain());
+  }
+}
+
+extension ProjectsMetaPaginationResponseMapper
+    on ProjectsMetaPaginationResponse {
+  Pagination toDomain() {
+    return Pagination(total?.orZero() ?? 0, pageSize?.orZero() ?? 0,
+        current?.orZero() ?? 0, last?.orZero() ?? 0);
+  }
+}
+
+extension ProjectResponseMapper on ProjectResponse {
+  Project toDomain() {
+    return Project(key ?? EMPTY, uuid ?? EMPTY, title ?? EMPTY,
+        office?.toDomain(), permission?.toDomain(), isLocked ?? false);
+  }
+}
+
+extension OfficeResponseMapper on OfficeResponse {
+  Office toDomain() {
+    return Office(name?.orEmpty() ?? EMPTY, acronym?.orEmpty() ?? EMPTY,
+        color?.orEmpty() ?? EMPTY);
+  }
+}
+
+extension PermissionResponseMapper on PermissionResponse {
+  Permission toDomain() {
+    return Permission(
+        view ?? false,
+        update ?? false,
+        delete ?? false,
+        lock ?? false,
+        unlock ?? false,
+        validate ?? false,
+        drop ?? false,
+        updatePipol ?? false);
   }
 }

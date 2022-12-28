@@ -67,7 +67,7 @@ class NotificationItem {
 
   NotificationData data;
 
-  DateTime? createdAt;
+  String? createdAt;
 
   NotificationItem(this.id, this.data, this.createdAt);
 }
@@ -80,4 +80,69 @@ class NotificationData {
   String message;
 
   NotificationData(this.subject, this.sender, this.message);
+}
+
+class Projects {
+  List<Project> data;
+
+  Meta meta;
+
+  Projects(this.data, this.meta);
+}
+
+class Meta {
+  Pagination pagination;
+
+  Meta(this.pagination);
+}
+
+class Project {
+  String key;
+
+  String uuid;
+
+  String title;
+
+  Office? office;
+
+  Permission? permission;
+
+  bool isLocked;
+
+  DateTime? updatedAt;
+
+  Project(this.key, this.uuid, this.title, this.office, this.permission,
+      this.isLocked,
+      {this.updatedAt});
+}
+
+class Pagination {
+  int total;
+  int pageSize;
+  int current;
+  int last;
+
+  Pagination(this.total, this.pageSize, this.current, this.last);
+}
+
+class Office {
+  String name;
+  String acronym;
+  String color;
+
+  Office(this.name, this.acronym, this.color);
+}
+
+class Permission {
+  bool view;
+  bool update;
+  bool delete;
+  bool lock;
+  bool unlock;
+  bool validate;
+  bool drop;
+  bool updatePipol;
+
+  Permission(this.view, this.update, this.delete, this.lock, this.unlock,
+      this.validate, this.drop, this.updatePipol);
 }

@@ -34,6 +34,7 @@ class ErrorHandler implements Exception {
       _handleError(error);
     } else {
       // default error
+      print("Internal Error: ${error.toString()}");
       failure = DataSource.defaultError.getFailure();
     }
   }

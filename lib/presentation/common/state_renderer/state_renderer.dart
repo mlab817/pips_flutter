@@ -86,8 +86,8 @@ class StateRenderer extends StatelessWidget {
 
   Widget _getAnimatedImage(String animationName) {
     return SizedBox(
-      height: AppSize.s100,
-      width: AppSize.s100,
+      height: AppSize.s180,
+      width: AppSize.s180,
 
       child: Lottie.asset(animationName), // json image
     );
@@ -104,11 +104,14 @@ class StateRenderer extends StatelessWidget {
   }
 
   Widget _getMessage(String message) {
-    return Text(
-      message,
-      style: getMediumStyle(
-        color: ColorManager.black,
-        fontSize: FontSize.s16,
+    return Padding(
+      padding: const EdgeInsets.all(AppPadding.p12),
+      child: Text(
+        message.toUpperCase(),
+        style: getMediumStyle(
+          color: ColorManager.black,
+          fontSize: FontSize.s16,
+        ),
       ),
     );
   }
@@ -118,7 +121,7 @@ class StateRenderer extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p18),
         child: SizedBox(
-            height: AppSize.s180,
+            height: AppSize.s40,
             child: ElevatedButton(
                 onPressed: () {
                   if (stateRendererType ==

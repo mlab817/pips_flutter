@@ -1,15 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:pips_flutter/app/app_prefs.dart';
 import 'package:pips_flutter/app/dependency_injection.dart';
 import 'package:pips_flutter/presentation/main/home/home_viewmodel.dart';
 import 'package:pips_flutter/presentation/resources/color_manager.dart';
 import 'package:pips_flutter/presentation/resources/font_manager.dart';
-import 'package:pips_flutter/presentation/resources/styles_manager.dart';
 import 'package:pips_flutter/presentation/resources/values_manager.dart';
 
 import '../../../domain/model/model.dart';
+import '../../common/state_renderer/state_renderer_implementation.dart';
 import '../../resources/strings_manager.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,231 +38,48 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // return SingleChildScrollView(
-    //   child: StreamBuilder<FlowState>(
-    //     stream: _viewModel.outputState,
-    //     builder: (context, snapshot) {
-    //       return snapshot.data?.getScreenWidget(context, _getContentWidgets(),
-    //               () {
-    //             _viewModel.start();
-    //           }) ??
-    //           Container();
-    //     },
-    //   ),
-    // );
     return Container(
-      padding: const EdgeInsets.all(AppPadding.p8),
-      decoration: BoxDecoration(
-        color: ColorManager.blueGrey,
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(AppPadding.p12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppSize.s12),
-              color: ColorManager.white,
-            ),
-            child: Column(
-              children: [
-                _getSection('Status of Submission'),
-                const SizedBox(
-                  height: AppSize.s20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        CircleAvatar(
-                          child: Text(
-                            '20',
-                            style: TextStyle(
-                              color: ColorManager.white,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: AppSize.s8,
-                        ),
-                        Text(
-                          'DRAFT',
-                          style: TextStyle(
-                            fontSize: FontSize.s10,
-                            color: ColorManager.primary,
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        CircleAvatar(
-                          child: Text(
-                            '20',
-                            style: TextStyle(
-                              color: ColorManager.white,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: AppSize.s8,
-                        ),
-                        Text(
-                          'FINALIZED',
-                          style: TextStyle(
-                            fontSize: FontSize.s10,
-                            color: ColorManager.primary,
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        CircleAvatar(
-                          child: Text(
-                            '20',
-                            style: TextStyle(
-                              color: ColorManager.white,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: AppSize.s8,
-                        ),
-                        Text(
-                          'ENDORSED',
-                          style: TextStyle(
-                            fontSize: FontSize.s10,
-                            color: ColorManager.primary,
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        CircleAvatar(
-                          child: Text(
-                            '20',
-                            style: TextStyle(
-                              color: ColorManager.white,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: AppSize.s8,
-                        ),
-                        Text(
-                          'DROPPED',
-                          style: TextStyle(
-                            fontSize: FontSize.s10,
-                            color: ColorManager.primary,
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+      color: ColorManager.lightOrange,
+      child: Center(
+        child: SingleChildScrollView(
+          child: StreamBuilder<FlowState>(
+            stream: _viewModel.outputState,
+            builder: (context, snapshot) {
+              return snapshot.data
+                      ?.getScreenWidget(context, _getContentWidgets(), () {
+                    _viewModel.start();
+                  }) ??
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  );
+            },
           ),
-          const SizedBox(height: AppSize.s12),
-          Container(
-            padding: const EdgeInsets.all(AppPadding.p8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppSize.s12),
-              color: ColorManager.white,
-            ),
-            child: Column(
-              children: [
-                _getSection('Latest Projects'),
-                SizedBox(
-                  height: AppSize.s180,
-                  child: ListView(
-                    children: const <Widget>[
-                      ListTile(
-                        title: Text('Item 1'),
-                        trailing: Text('PHP 1,000,000'),
-                      ),
-                      ListTile(
-                        title: Text('Item 2'),
-                        trailing: Text('PHP 1,000,000'),
-                      ),
-                      ListTile(
-                        title: Text('Item 3'),
-                        trailing: Text('PHP 1,000,000'),
-                      ),
-                      ListTile(
-                        title: Text('Item 4'),
-                        trailing: Text('PHP 1,000,000'),
-                      ),
-                      ListTile(
-                        title: Text('Item 5'),
-                        trailing: Text('PHP 1,000,000'),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
-
-    // color: ColorManager.blueGrey,
-    // padding: const EdgeInsets.all(AppPadding.p12),
-    // child: Container(
-    // decoration: BoxDecoration(
-    // borderRadius: BorderRadius.circular(AppSize.s20),
-    // color: ColorManager.white,
-    // ),
-    // child: Padding(
-    // padding: const EdgeInsets.all(8.0),
-    // child: Flex(
-    // direction: Axis.horizontal,
-    // children: [
-    // Expanded(
-    // child: Row(
-    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    // children: [
-    // Text(
-    // 'Latest Projects',
-    // style: getBoldStyle(
-    // color: ColorManager.black,
-    // fontSize: FontSize.s16,
-    // ),
-    // ),
-    // const TextButton(
-    // onPressed: null,
-    // child: Text('See All'),
-    // )
-    // ],
-    // ),
-    // ),
-    // ListView(
-    // children: const <Widget>[
-    // ListTile(
-    // title: Text('First item'),
-    // ),
-    // ],
-    // ),
-    // ],
-    // ),
-    // ),
-    // ),
   }
 
   Widget _getContentWidgets() {
     return StreamBuilder<Dashboard>(
         stream: _viewModel.outputDashboard,
         builder: (context, snapshot) {
-          //
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              _getSection(AppStrings.statusOfSubmission),
-              _getStatuses(snapshot.data?.pipsStatuses),
+              Container(
+                padding: const EdgeInsets.all(AppPadding.p12),
+                decoration: BoxDecoration(
+                  color: ColorManager.white,
+                ),
+                child: Column(children: [
+                  _getSection(AppStrings.statusOfSubmission),
+                  const SizedBox(
+                    height: AppSize.s12,
+                  ),
+                  _getStatuses(snapshot.data?.pipsStatuses)
+                ]),
+              ),
             ],
           );
         });
@@ -286,54 +101,40 @@ class _HomePageState extends State<HomePage> {
 
   Widget _getStatuses(List<PipsStatus>? pipsStatuses) {
     if (pipsStatuses != null) {
-      double screenWidth = MediaQuery.of(context).size.width;
-
       return Padding(
         padding: const EdgeInsets.only(
           left: AppPadding.p12,
           right: AppPadding.p12,
         ),
         child: Container(
+          decoration: BoxDecoration(color: ColorManager.white),
           height: AppSize.s80,
           margin: const EdgeInsets.symmetric(vertical: AppMargin.m12),
-          child: ListView(
-            scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: pipsStatuses
-                .map((status) => Card(
-                      color: HexColor.fromColorName(status.color),
-                      elevation: AppSize.s1_5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppSize.s12),
-                        side: BorderSide(
-                          color: ColorManager.white,
-                          width: AppSize.s1_5,
-                        ),
-                      ),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: screenWidth - 24, // subtract padding
-                            height: AppSize.s40,
-                          ),
-                          // ClipRRect(
-                          //   borderRadius: BorderRadius.circular(AppSize.s12),
-                          // ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: AppPadding.p8),
-                            child: Align(
-                              alignment: Alignment.bottomRight,
-                              child: Text(
-                                status.name,
-                                textAlign: TextAlign.center,
-                                style: getBoldStyle(
-                                  color: ColorManager.white,
-                                  fontSize: FontSize.s20,
-                                ),
-                              ),
+                .map((status) => Column(
+                      children: [
+                        CircleAvatar(
+                          child: Text(
+                            status.projectsCount.toString(),
+                            style: TextStyle(
+                              color: ColorManager.white,
+                              fontSize: FontSize.s12,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(
+                          height: AppSize.s8,
+                        ),
+                        Text(
+                          status.name.toUpperCase(),
+                          style: TextStyle(
+                            fontSize: FontSize.s10,
+                            color: ColorManager.primary,
+                          ),
+                        )
+                      ],
                     ))
                 .toList(),
           ),
@@ -398,3 +199,102 @@ class _HomePageState extends State<HomePage> {
     }
   }
 }
+
+// return Container(
+// padding: const EdgeInsets.all(AppPadding.p8),
+// decoration: BoxDecoration(
+// color: ColorManager.blueGrey,
+// ),
+// child: Column(
+// children: [
+// Container(
+// padding: const EdgeInsets.all(AppPadding.p12),
+// decoration: BoxDecoration(
+// borderRadius: BorderRadius.circular(AppSize.s12),
+// color: ColorManager.white,
+// ),
+// child: Column(
+// children: [
+//
+// const SizedBox(
+// height: AppSize.s8,
+// ),
+// Text(
+// 'ENDORSED',
+// style: TextStyle(
+// fontSize: FontSize.s10,
+// color: ColorManager.primary,
+// ),
+// )
+// ],
+// ),
+// Column(
+// children: [
+// CircleAvatar(
+// child: Text(
+// '20',
+// style: TextStyle(
+// color: ColorManager.white,
+// ),
+// ),
+// ),
+// const SizedBox(
+// height: AppSize.s8,
+// ),
+// Text(
+// 'DROPPED',
+// style: TextStyle(
+// fontSize: FontSize.s10,
+// color: ColorManager.primary,
+// ),
+// )
+// ],
+// ),
+// ],
+// ),
+// ],
+// ),
+// ),
+// const SizedBox(height: AppSize.s12),
+// Container(
+// padding: const EdgeInsets.all(AppPadding.p8),
+// decoration: BoxDecoration(
+// borderRadius: BorderRadius.circular(AppSize.s12),
+// color: ColorManager.white,
+// ),
+// child: Column(
+// children: [
+// _getSection('Latest Projects'),
+// SizedBox(
+// height: AppSize.s280,
+// child: ListView(
+// children: const <Widget>[
+// ListTile(
+// title: Text('Item 1'),
+// trailing: Text('PHP 1,000,000'),
+// ),
+// ListTile(
+// title: Text('Item 2'),
+// trailing: Text('PHP 1,000,000'),
+// ),
+// ListTile(
+// title: Text('Item 3'),
+// trailing: Text('PHP 1,000,000'),
+// ),
+// ListTile(
+// title: Text('Item 4'),
+// trailing: Text('PHP 1,000,000'),
+// ),
+// ListTile(
+// title: Text('Item 5'),
+// trailing: Text('PHP 1,000,000'),
+// ),
+// ],
+// ),
+// ),
+// ],
+// ),
+// ),
+// ],
+// ),
+// );

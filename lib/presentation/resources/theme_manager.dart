@@ -122,5 +122,9 @@ ThemeData getApplicationTheme() {
       ),
       suffixIconColor: ColorManager.lightGrey,
     ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      unselectedLabelStyle: TextStyle(fontSize: FontSize.s10),
+      selectedLabelStyle: TextStyle(fontSize: FontSize.s10),
+    ),
   );
 }

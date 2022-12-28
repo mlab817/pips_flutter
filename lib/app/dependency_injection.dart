@@ -12,10 +12,12 @@ import 'package:pips_flutter/domain/usecase/dashboard_usecase.dart';
 import 'package:pips_flutter/domain/usecase/forgot_password_usecase.dart';
 import 'package:pips_flutter/domain/usecase/login_usecase.dart';
 import 'package:pips_flutter/domain/usecase/notifications_usecase.dart';
+import 'package:pips_flutter/domain/usecase/projects_usecase.dart';
 import 'package:pips_flutter/presentation/forgot_password/forgot_password_viewmodel.dart';
 import 'package:pips_flutter/presentation/login/login_viewmodel.dart';
 import 'package:pips_flutter/presentation/main/home/home_viewmodel.dart';
 import 'package:pips_flutter/presentation/main/notifications/notifications_viewmodel.dart';
+import 'package:pips_flutter/presentation/main/projects/projects_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final instance = GetIt.instance;
@@ -76,5 +78,14 @@ initNotificationsModule() {
         () => NotificationsUseCase(instance()));
     instance.registerFactory<NotificationsViewModel>(
         () => NotificationsViewModel(instance()));
+  }
+}
+
+initProjectsModule() {
+  if (!GetIt.I.isRegistered<ProjectsUseCase>()) {
+    instance
+        .registerFactory<ProjectsUseCase>(() => ProjectsUseCase(instance()));
+    instance.registerFactory<ProjectsViewModel>(
+        () => ProjectsViewModel(instance()));
   }
 }

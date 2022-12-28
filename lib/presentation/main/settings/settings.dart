@@ -30,14 +30,18 @@ class _SettingsPageState extends State<SettingsPage> {
           leading: const Icon(Icons.security),
           title: const Text('Security'),
           trailing: const Icon(Icons.chevron_right),
-          onTap: () {},
+          onTap: () {
+
+          },
         ),
         const Divider(),
         ListTile(
           leading: const Icon(Icons.info_outline),
           title: const Text('About'),
           trailing: const Icon(Icons.chevron_right),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, Routes.aboutRoute);
+          },
         ),
         const Divider(),
         ListTile(

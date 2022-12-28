@@ -23,4 +23,7 @@ abstract class AppServiceClient {
 
   @GET("/auth/notifications")
   Future<NotificationsResponse> getNotifications();
+
+  @GET("/projects")
+  Future<ProjectsResponse> getProjects();
 }

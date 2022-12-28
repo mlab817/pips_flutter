@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pips_flutter/app/dependency_injection.dart';
+import 'package:pips_flutter/presentation/about/about.dart';
 import 'package:pips_flutter/presentation/forgot_password/forgot_password.dart';
 import 'package:pips_flutter/presentation/login/login.dart';
 import 'package:pips_flutter/presentation/main/main.dart';
@@ -16,6 +17,7 @@ class Routes {
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String mainRoute = "/main";
   static const String storeDetailsRoute = "/storeDetails";
+  static const String aboutRoute = "/about";
 }
 
 class RouteGenerator {
@@ -34,9 +36,12 @@ class RouteGenerator {
         // initialize to make instance available
         initForgotPasswordModule();
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
+      case Routes.aboutRoute:
+        return MaterialPageRoute(builder: (_) => const AboutView());
       case Routes.mainRoute:
         initDashboardModule();
         initNotificationsModule();
+        initProjectsModule();
         return MaterialPageRoute(builder: (_) => const MainView());
       default:
         return undefinedRoute();

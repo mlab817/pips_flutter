@@ -161,3 +161,116 @@ Map<String, dynamic> _$NotificationDataResponseToJson(
       'subject': instance.subject,
       'message': instance.message,
     };
+
+ProjectsResponse _$ProjectsResponseFromJson(Map<String, dynamic> json) {
+  return ProjectsResponse(
+    (json['data'] as List<dynamic>)
+        .map((e) => ProjectResponse.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    ProjectsMetaResponse.fromJson(json['meta'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$ProjectsResponseToJson(ProjectsResponse instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'meta': instance.meta,
+    };
+
+ProjectsMetaResponse _$ProjectsMetaResponseFromJson(Map<String, dynamic> json) {
+  return ProjectsMetaResponse(
+    ProjectsMetaPaginationResponse.fromJson(
+        json['pagination'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$ProjectsMetaResponseToJson(
+        ProjectsMetaResponse instance) =>
+    <String, dynamic>{
+      'pagination': instance.pagination,
+    };
+
+ProjectsMetaPaginationResponse _$ProjectsMetaPaginationResponseFromJson(
+    Map<String, dynamic> json) {
+  return ProjectsMetaPaginationResponse(
+    json['total'] as int?,
+    json['pageSize'] as int?,
+    json['current'] as int?,
+    json['last'] as int?,
+  );
+}
+
+Map<String, dynamic> _$ProjectsMetaPaginationResponseToJson(
+        ProjectsMetaPaginationResponse instance) =>
+    <String, dynamic>{
+      'total': instance.total,
+      'pageSize': instance.pageSize,
+      'current': instance.current,
+      'last': instance.last,
+    };
+
+ProjectResponse _$ProjectResponseFromJson(Map<String, dynamic> json) {
+  return ProjectResponse(
+    json['key'] as String?,
+    json['uuid'] as String?,
+    json['title'] as String?,
+    json['office'] == null
+        ? null
+        : OfficeResponse.fromJson(json['office'] as Map<String, dynamic>),
+    json['permission'] == null
+        ? null
+        : PermissionResponse.fromJson(
+            json['permission'] as Map<String, dynamic>),
+    json['is_locked'] as bool?,
+  );
+}
+
+Map<String, dynamic> _$ProjectResponseToJson(ProjectResponse instance) =>
+    <String, dynamic>{
+      'key': instance.key,
+      'uuid': instance.uuid,
+      'title': instance.title,
+      'office': instance.office,
+      'permission': instance.permission,
+      'is_locked': instance.isLocked,
+    };
+
+OfficeResponse _$OfficeResponseFromJson(Map<String, dynamic> json) {
+  return OfficeResponse(
+    json['name'] as String?,
+    json['acronym'] as String?,
+    json['color'] as String?,
+  );
+}
+
+Map<String, dynamic> _$OfficeResponseToJson(OfficeResponse instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'acronym': instance.acronym,
+      'color': instance.color,
+    };
+
+PermissionResponse _$PermissionResponseFromJson(Map<String, dynamic> json) {
+  return PermissionResponse(
+    json['view'] as bool?,
+    json['update'] as bool?,
+    json['delete'] as bool?,
+    json['lock'] as bool?,
+    json['unlock'] as bool?,
+    json['validate'] as bool?,
+    json['drop'] as bool?,
+    json['updatePipol'] as bool?,
+  );
+}
+
+Map<String, dynamic> _$PermissionResponseToJson(PermissionResponse instance) =>
+    <String, dynamic>{
+      'view': instance.view,
+      'update': instance.update,
+      'delete': instance.delete,
+      'lock': instance.lock,
+      'unlock': instance.unlock,
+      'validate': instance.validate,
+      'drop': instance.drop,
+      'updatePipol': instance.updatePipol,
+    };

@@ -56,10 +56,10 @@ class PipsStatus {
   String name;
   String color;
   String description;
-  int projects_count;
+  int projectsCount;
 
-  PipsStatus(this.id, this.name, this.color, this.description,
-      this.projects_count);
+  PipsStatus(
+      this.id, this.name, this.color, this.description, this.projectsCount);
 }
 
 class NotificationItem {
@@ -67,7 +67,7 @@ class NotificationItem {
 
   NotificationData data;
 
-  dynamic createdAt;
+  DateTime? createdAt;
 
   NotificationItem(this.id, this.data, this.createdAt);
 }

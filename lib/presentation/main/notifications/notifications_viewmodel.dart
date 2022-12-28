@@ -1,17 +1,16 @@
 import 'dart:async';
 import 'dart:ffi';
 
-import 'package:flutter/material.dart';
 import 'package:pips_flutter/domain/model/model.dart';
 import 'package:pips_flutter/domain/usecase/notifications_usecase.dart';
 import 'package:pips_flutter/presentation/base/baseviewmodel.dart';
 import 'package:pips_flutter/presentation/common/state_renderer/state_renderer.dart';
 import 'package:pips_flutter/presentation/common/state_renderer/state_renderer_implementation.dart';
+import 'package:rxdart/rxdart.dart';
 
 class NotificationsViewModel extends BaseViewModel
     with NotificationsViewModelInputs, NotificationsViewModelOutputs {
-  final StreamController _streamController =
-      StreamController<List<NotificationItem>>.broadcast();
+  final _streamController = BehaviorSubject<NotificationObject>();
 
   final NotificationsUseCase _notificationsUseCase;
 
@@ -26,7 +25,10 @@ class NotificationsViewModel extends BaseViewModel
               inputState.add(ErrorState(
                   StateRendererType.fullScreenErrorState, failure.message)),
             },
-        (data) => {inputState.add(ContentState()), inputState.add(data)});
+        (data) => {
+              inputState.add(ContentState()),
+              inputNotifications.add(NotificationObject(data))
+            });
   }
 
   @override
@@ -41,11 +43,11 @@ class NotificationsViewModel extends BaseViewModel
   }
 
   @override
-  Stream<List<Notification>> get outputNotifications =>
-      _streamController.stream.map((data) => data);
+  Sink get inputNotifications => _streamController.sink;
 
   @override
-  Sink get inputNotifications => _streamController.sink;
+  Stream<NotificationObject> get outputNotificationsObject =>
+      _streamController.stream.map((data) => data);
 }
 
 abstract class NotificationsViewModelInputs {
@@ -53,5 +55,15 @@ abstract class NotificationsViewModelInputs {
 }
 
 abstract class NotificationsViewModelOutputs {
-  Stream<List<NotificationItem>> get outputNotifications;
+  Stream<NotificationObject> get outputNotificationsObject;
+}
+
+class NotificationObject {
+  List<NotificationItem> notifications;
+
+  int getLength() {
+    return notifications.length;
+  }
+
+  NotificationObject(this.notifications);
 }

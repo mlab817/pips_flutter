@@ -57,12 +57,9 @@ class LoginViewModel extends BaseViewModel
             .add(ErrorState(StateRendererType.popupErrorState, failure.message))
       },
       (Authentication data) => {
-        // success
-        print("response data $data"),
         inputState.add(ContentState()),
         // navigate to maincreen after login
-        isUserLoggedInSuccessfullyStreamController
-            .add(data.accessToken.toString()),
+        isUserLoggedInSuccessfullyStreamController.add(data.accessToken),
       },
     );
   }

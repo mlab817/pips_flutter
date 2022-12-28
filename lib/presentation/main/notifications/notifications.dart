@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:pips_flutter/domain/model/model.dart';
 import 'package:pips_flutter/presentation/common/state_renderer/state_renderer_implementation.dart';
 import 'package:pips_flutter/presentation/main/notifications/notifications_viewmodel.dart';
+import 'package:pips_flutter/presentation/resources/color_manager.dart';
+import 'package:pips_flutter/app/extensions.dart';
+import 'package:pips_flutter/presentation/resources/styles_manager.dart';
 
 import '../../../app/dependency_injection.dart';
+import '../../resources/values_manager.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({Key? key}) : super(key: key);
@@ -45,20 +49,64 @@ class _NotificationsPageState extends State<NotificationsPage> {
   }
 
   Widget _getContentWidgets() {
-    return StreamBuilder<List<NotificationItem>>(
-        stream: _viewModel.outputNotifications,
-        builder: (context, snapshot) {
-          if (snapshot.data != null) {
-            return ListView(
-              children: snapshot.data
-                  ?.map((notification) => ListTile(
-                        title: Text(notification.data?.message),
-                      ))
-                  .toList(),
+    return StreamBuilder<NotificationObject>(
+        stream: _viewModel.outputNotificationsObject,
+        builder: (_, snapshot) => _buildListView(snapshot.data));
+  }
+
+  Widget _buildListView(NotificationObject? notificationObject) {
+    if (notificationObject != null) {
+      List<NotificationItem> notifications = notificationObject.notifications;
+
+      return ListView.builder(
+          itemCount: notifications.length,
+          itemBuilder: (context, index) {
+            NotificationItem item = notifications[index];
+
+            // if sender is more than 2 characters, trim to 2
+            final sender = item.data.sender.length > 2
+                ? item.data.sender.substring(0, 2).toUpperCase()
+                : item.data.sender.toUpperCase();
+
+            return Container(
+              padding: const EdgeInsets.only(
+                top: AppPadding.p8,
+              ),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: ColorManager.grey,
+                    width: AppSize.s1_5,
+                  ),
+                ),
+              ),
+              child: ListTile(
+                leading: CircleAvatar(
+                  child: Text(
+                    sender,
+                    style: getBoldStyle(
+                      color: ColorManager.white,
+                    ),
+                  ),
+                ),
+                title: Text(
+                  item.data.message,
+                  style: getLightStyle(
+                    color: ColorManager.black,
+                  ),
+                ),
+                trailing: Text(
+                  item.createdAt.timeAgo(),
+                  style: TextStyle(
+                    fontSize: 8.0,
+                    color: ColorManager.lightGrey,
+                  ),
+                ),
+              ),
             );
-          } else {
-            return Container();
-          }
-        });
+          });
+    } else {
+      return Container();
+    }
   }
 }

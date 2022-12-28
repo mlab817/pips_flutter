@@ -1,6 +1,4 @@
 // convert response into non-nullable objects (model)
-
-import 'package:flutter/foundation.dart';
 import 'package:pips_flutter/app/extensions.dart';
 import 'package:pips_flutter/data/responses/responses.dart';
 import 'package:pips_flutter/domain/model/model.dart';

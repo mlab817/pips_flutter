@@ -49,8 +49,10 @@ class _HomePageState extends State<HomePage> {
                       ?.getScreenWidget(context, _getContentWidgets(), () {
                     _viewModel.start();
                   }) ??
-                  const Center(
-                    child: CircularProgressIndicator(),
+                  Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.primary,
+                    ),
                   );
             },
           ),

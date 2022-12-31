@@ -34,7 +34,7 @@ class StateRenderer extends StatelessWidget {
     String? title,
     required this.retryActionFunction,
   })  : message = message ?? AppStrings.loading,
-        title = title ?? EMPTY,
+        title = title ?? emptyString,
         failure = failure ?? DefaultFailure(),
         super(key: key);
 

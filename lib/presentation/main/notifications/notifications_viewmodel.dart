@@ -17,8 +17,8 @@ class NotificationsViewModel extends BaseViewModel
   NotificationsViewModel(this._notificationsUseCase);
 
   void _getNotifications() async {
-    inputState.add(LoadingState(
-        stateRendererType: StateRendererType.fullScreenLoadingState));
+    // inputState.add(
+    //     LoadingState(stateRendererType: StateRendererType.popupLoadingState));
 
     (await _notificationsUseCase.execute(Void)).fold(
         (failure) => {

@@ -6,6 +6,8 @@ part of 'app_api.dart';
 // RetrofitGenerator
 // **************************************************************************
 
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+
 class _AppServiceClient implements AppServiceClient {
   _AppServiceClient(
     this._dio, {
@@ -25,6 +27,7 @@ class _AppServiceClient implements AppServiceClient {
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
     final _data = {
       'username': username,
       'password': password,
@@ -32,7 +35,7 @@ class _AppServiceClient implements AppServiceClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AuthenticationResponse>(Options(
       method: 'POST',
-      headers: <String, dynamic>{},
+      headers: _headers,
       extra: _extra,
     )
             .compose(
@@ -50,11 +53,12 @@ class _AppServiceClient implements AppServiceClient {
   Future<ForgotPasswordResponse> sendPasswordResetEmail(email) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
     final _data = {'email': email};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ForgotPasswordResponse>(Options(
       method: 'POST',
-      headers: <String, dynamic>{},
+      headers: _headers,
       extra: _extra,
     )
             .compose(
@@ -72,11 +76,12 @@ class _AppServiceClient implements AppServiceClient {
   Future<DashboardResponse> dashboard() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<DashboardResponse>(Options(
       method: 'GET',
-      headers: <String, dynamic>{},
+      headers: _headers,
       extra: _extra,
     )
             .compose(
@@ -94,11 +99,12 @@ class _AppServiceClient implements AppServiceClient {
   Future<NotificationsResponse> getNotifications() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<NotificationsResponse>(Options(
       method: 'GET',
-      headers: <String, dynamic>{},
+      headers: _headers,
       extra: _extra,
     )
             .compose(
@@ -113,14 +119,44 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<ProjectsResponse> getProjects() async {
+  Future<ProjectsResponse> getProjects(page) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'page': page};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ProjectsResponse>(Options(
       method: 'GET',
-      headers: <String, dynamic>{},
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/projects',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ProjectsResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ProjectsResponse> searchProjects(
+    q,
+    page,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'q': q,
+      r'page': page,
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ProjectsResponse>(Options(
+      method: 'GET',
+      headers: _headers,
       extra: _extra,
     )
             .compose(

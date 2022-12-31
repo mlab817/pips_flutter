@@ -11,6 +11,7 @@ class ImageAssets {
 }
 
 class JsonAssets {
+  static const String splash = '$JSON_PATH/splash.json';
   static const String loading = '$JSON_PATH/loading.json';
   static const String empty = '$JSON_PATH/empty.json';
   static const String error = '$JSON_PATH/error.json';

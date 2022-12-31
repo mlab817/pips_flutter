@@ -11,8 +11,10 @@ abstract class AppServiceClient {
   factory AppServiceClient(Dio dio, {String baseUrl}) = _AppServiceClient;
 
   @POST("/auth/login")
-  Future<AuthenticationResponse> login(@Field("username") String username,
-      @Field("password") String password,);
+  Future<AuthenticationResponse> login(
+    @Field("username") String username,
+    @Field("password") String password,
+  );
 
   @POST("/auth/forgot-password")
   Future<ForgotPasswordResponse> sendPasswordResetEmail(
@@ -25,5 +27,9 @@ abstract class AppServiceClient {
   Future<NotificationsResponse> getNotifications();
 
   @GET("/projects")
-  Future<ProjectsResponse> getProjects();
+  Future<ProjectsResponse> getProjects(@Query("page") int page);
+
+  @GET("/projects")
+  Future<ProjectsResponse> searchProjects(
+      @Query("q") String q, @Query("page") int page);
 }

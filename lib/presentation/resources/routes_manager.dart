@@ -4,6 +4,8 @@ import 'package:pips_flutter/presentation/about/about.dart';
 import 'package:pips_flutter/presentation/forgot_password/forgot_password.dart';
 import 'package:pips_flutter/presentation/login/login.dart';
 import 'package:pips_flutter/presentation/main/main.dart';
+import 'package:pips_flutter/presentation/main/profile/profile.dart';
+import 'package:pips_flutter/presentation/main/project/project.dart';
 import 'package:pips_flutter/presentation/onboarding/onboarding.dart';
 import 'package:pips_flutter/presentation/register/register.dart';
 import 'package:pips_flutter/presentation/resources/strings_manager.dart';
@@ -17,6 +19,8 @@ class Routes {
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String mainRoute = "/main";
   static const String storeDetailsRoute = "/storeDetails";
+  static const String projectRoute = "/project";
+  static const String profileRoute = "/profile";
   static const String aboutRoute = "/about";
 }
 
@@ -38,10 +42,13 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
       case Routes.aboutRoute:
         return MaterialPageRoute(builder: (_) => const AboutView());
+      case Routes.profileRoute:
+        return MaterialPageRoute(builder: (_) => const ProfileView());
       case Routes.mainRoute:
         initDashboardModule();
         initNotificationsModule();
         initProjectsModule();
+        initSearchModule();
         return MaterialPageRoute(builder: (_) => const MainView());
       default:
         return undefinedRoute();
@@ -50,13 +57,14 @@ class RouteGenerator {
 
   static Route<dynamic> undefinedRoute() {
     return MaterialPageRoute(
-        builder: (_) => Scaffold(
-              appBar: AppBar(
-                title: const Text(AppStrings.noRouteFound),
-              ),
-              body: const Center(
-                child: Text(AppStrings.noRouteFound),
-              ),
-            ));
+      builder: (_) => Scaffold(
+        appBar: AppBar(
+          title: const Text(AppStrings.noRouteFound),
+        ),
+        body: const Center(
+          child: Text(AppStrings.noRouteFound),
+        ),
+      ),
+    );
   }
 }

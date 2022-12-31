@@ -24,15 +24,15 @@ class _SettingsPageState extends State<SettingsPage> {
           leading: const Icon(Icons.person),
           title: const Text('Profile'),
           trailing: const Icon(Icons.chevron_right),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, Routes.profileRoute);
+          },
         ),
         ListTile(
           leading: const Icon(Icons.security),
           title: const Text('Security'),
           trailing: const Icon(Icons.chevron_right),
-          onTap: () {
-
-          },
+          onTap: () {},
         ),
         const Divider(),
         ListTile(

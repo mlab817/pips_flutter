@@ -42,7 +42,6 @@ class OnBoardingViewModel extends BaseViewModel
 
   @override
   int goPrevious() {
-    // TODO: implement goPrevious
     int previousIndex = _currentIndex--;
 
     if (previousIndex == -1) {
@@ -54,14 +53,12 @@ class OnBoardingViewModel extends BaseViewModel
 
   @override
   void onPageChanged(int index) {
-    // TODO: implement onPageChanged
     _currentIndex = index;
     // send data to view
     _postDataToView();
   }
 
   @override
-  // TODO: implement inputSliderViewObject
   Sink get inputSliderViewObject => _streamController.sink;
 
   @override

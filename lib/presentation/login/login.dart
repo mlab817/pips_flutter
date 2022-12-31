@@ -41,10 +41,12 @@ class _LoginViewState extends State<LoginView> {
     _passwordController
         .addListener(() => _viewModel.setPassword(_passwordController.text));
     _viewModel.isUserLoggedInSuccessfullyStreamController.stream
-        .listen((token) {
+        .listen((authentication) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        _appPreferences.setUserToken(token);
+        _appPreferences.setUserToken(authentication.accessToken);
+        _appPreferences.setUser(authentication.user);
         _appPreferences.setIsUserLoggedIn();
+        resetModules();
         Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
       });
     });

@@ -53,11 +53,10 @@ class _AboutViewState extends State<AboutView>
   }
 
   Widget _getContentWidget() {
-    return Container(
-      padding: const EdgeInsets.all(AppPadding.p12),
+    return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: AppSize.s80),
           ClipRRect(
             borderRadius: BorderRadius.circular(AppSize.s12),
             child: Image.asset(ImageAssets.splashLogo),
@@ -83,17 +82,20 @@ class _AboutViewState extends State<AboutView>
             ),
           ),
           const SizedBox(height: AppSize.s40),
-          const SizedBox(
-            height: AppSize.s200,
-            child:
-                SingleChildScrollView(child: Text(AppStrings.appDescription)),
+          const Padding(
+            padding: EdgeInsets.all(AppPadding.p12),
+            child: SizedBox(
+              height: AppSize.s200,
+              child:
+                  SingleChildScrollView(child: Text(AppStrings.appDescription)),
+            ),
           ),
           const SizedBox(
             height: AppSize.s8,
           ),
           AlignTransition(
             alignment: _animation,
-            heightFactor: 1.2,
+            heightFactor: 1.4,
             child: SizedBox(
               child: Icon(
                 Icons.expand_more,

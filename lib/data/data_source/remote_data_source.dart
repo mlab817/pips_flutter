@@ -12,7 +12,10 @@ abstract class RemoteDataSource {
 
   Future<NotificationsResponse> getNotifications();
 
-  Future<ProjectsResponse> getProjects();
+  Future<ProjectsResponse> getProjects(GetProjectsRequest getProjectsRequest);
+
+  Future<ProjectsResponse> searchProjects(
+      GetSearchProjectsRequest getSearchProjectsRequest);
 }
 
 class RemoteDataSourceImplementer implements RemoteDataSource {
@@ -47,7 +50,15 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
   }
 
   @override
-  Future<ProjectsResponse> getProjects() async {
-    return await _appServiceClient.getProjects();
+  Future<ProjectsResponse> getProjects(
+      GetProjectsRequest getProjectsRequest) async {
+    return await _appServiceClient.getProjects(getProjectsRequest.page);
+  }
+
+  @override
+  Future<ProjectsResponse> searchProjects(
+      GetSearchProjectsRequest getSearchProjectsRequest) async {
+    return await _appServiceClient.searchProjects(
+        getSearchProjectsRequest.q, getSearchProjectsRequest.page);
   }
 }

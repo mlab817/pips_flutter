@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+
 import 'package:pips_flutter/app/app_prefs.dart';
+import 'package:pips_flutter/app/dependency_injection.dart';
 import 'package:pips_flutter/presentation/resources/assets_manager.dart';
 import 'package:pips_flutter/presentation/resources/color_manager.dart';
 import 'package:pips_flutter/presentation/resources/routes_manager.dart';
-
-import '../../app/dependency_injection.dart';
+import 'package:pips_flutter/presentation/resources/values_manager.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key});
@@ -70,7 +72,11 @@ class _SplashViewState extends State<SplashView> {
     return Scaffold(
       backgroundColor: ColorManager.white,
       body: Center(
-        child: Image.asset(ImageAssets.splashLogo),
+        child: SizedBox(
+          width: AppSize.s200,
+          height: AppSize.s200,
+          child: Lottie.asset(JsonAssets.splash),
+        ), // Image.asset(ImageAssets.splashLogo),
       ),
     );
   }

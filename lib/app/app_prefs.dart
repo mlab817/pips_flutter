@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:pips_flutter/data/responses/responses.dart';
+import 'package:pips_flutter/domain/model/model.dart';
 import 'package:pips_flutter/presentation/resources/language_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,6 +15,7 @@ const String prefsKeyUserCredentialsUsername =
     "PREFS_KEY_USER_CREDENTIALS_USERNAME";
 const String prefsKeyUserCredentialsPassword =
     "PREFS_KEY_USER_CREDENTIALS_PASSWORD";
+const String prefsCurrentLoggedInUser = "PREFS_CURRENT_LOGGED_IN_USER";
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
@@ -51,6 +56,19 @@ class AppPreferences {
 
   Future<String> getUserToken() async {
     return _sharedPreferences.getString(prefsKeyBearerToken) ?? "";
+  }
+
+  Future<void> setUser(User user) async {
+    print(user);
+    _sharedPreferences.setString(prefsCurrentLoggedInUser, userToJson(user));
+  }
+
+  Future<User?> getUser() async {
+    return _sharedPreferences.getString(prefsCurrentLoggedInUser) as User?;
+  }
+
+  Future<void> clearUser() async {
+    await _sharedPreferences.remove(prefsCurrentLoggedInUser);
   }
 
   // remove token and remove user log in

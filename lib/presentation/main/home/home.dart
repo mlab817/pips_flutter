@@ -39,24 +39,30 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorManager.lightOrange,
-      child: Center(
-        child: SingleChildScrollView(
-          child: StreamBuilder<FlowState>(
-            stream: _viewModel.outputState,
-            builder: (context, snapshot) {
-              return snapshot.data
-                      ?.getScreenWidget(context, _getContentWidgets(), () {
-                    _viewModel.start();
-                  }) ??
-                  Center(
-                    child: CircularProgressIndicator(
-                      color: ColorManager.primary,
-                    ),
-                  );
-            },
-          ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: <Color>[
+            ColorManager.white,
+            ColorManager.lightOrange,
+            ColorManager.primaryOpacity70,
+          ],
         ),
+      ),
+      child: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data?.getScreenWidget(context, _getContentWidgets(),
+                  () {
+                _viewModel.start();
+              }) ??
+              Center(
+                child: CircularProgressIndicator(
+                  color: ColorManager.primary,
+                ),
+              );
+        },
       ),
     );
   }
@@ -70,9 +76,18 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
+                margin: const EdgeInsets.all(AppPadding.p12),
                 padding: const EdgeInsets.all(AppPadding.p12),
                 decoration: BoxDecoration(
                   color: ColorManager.white,
+                  borderRadius: BorderRadius.circular(AppSize.s12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: ColorManager.grey,
+                      offset: const Offset(0.0, 1.0), //(x,y)
+                      blurRadius: 1.0,
+                    ),
+                  ],
                 ),
                 child: Column(children: [
                   _getSection(AppStrings.statusOfSubmission),
@@ -89,11 +104,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _getSection(String title) {
     return Padding(
-      padding: const EdgeInsets.only(
-          top: AppPadding.p12,
-          left: AppPadding.p12,
-          right: AppPadding.p12,
-          bottom: AppPadding.p2),
+      padding: const EdgeInsets.all(AppPadding.p2),
       child: Text(
         title.toUpperCase(),
         style: Theme.of(context).textTheme.subtitle2,
@@ -110,7 +121,7 @@ class _HomePageState extends State<HomePage> {
         ),
         child: Container(
           decoration: BoxDecoration(color: ColorManager.white),
-          height: AppSize.s80,
+          // height: AppSize.s80,
           margin: const EdgeInsets.symmetric(vertical: AppMargin.m12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

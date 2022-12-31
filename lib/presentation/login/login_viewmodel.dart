@@ -21,7 +21,7 @@ class LoginViewModel extends BaseViewModel
 
   // not private
   final StreamController isUserLoggedInSuccessfullyStreamController =
-      StreamController<String>();
+      StreamController<Authentication>();
 
   var loginObject = LoginObject("", ""); // data class?
 
@@ -56,10 +56,11 @@ class LoginViewModel extends BaseViewModel
         inputState
             .add(ErrorState(StateRendererType.popupErrorState, failure.message))
       },
-      (Authentication data) => {
+      (data) => {
+        print("data: $data"),
         inputState.add(ContentState()),
         // navigate to maincreen after login
-        isUserLoggedInSuccessfullyStreamController.add(data.accessToken),
+        isUserLoggedInSuccessfullyStreamController.add(data),
       },
     );
   }

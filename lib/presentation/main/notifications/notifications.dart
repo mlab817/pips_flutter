@@ -4,6 +4,7 @@ import 'package:pips_flutter/presentation/common/state_renderer/state_renderer_i
 import 'package:pips_flutter/presentation/main/notifications/notifications_viewmodel.dart';
 import 'package:pips_flutter/presentation/resources/color_manager.dart';
 import 'package:pips_flutter/app/extensions.dart';
+import 'package:pips_flutter/presentation/resources/font_manager.dart';
 import 'package:pips_flutter/presentation/resources/styles_manager.dart';
 
 import '../../../app/dependency_injection.dart';
@@ -44,7 +45,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   () {
                 _viewModel.start();
               }) ??
-              Container();
+              Center(
+                child: CircularProgressIndicator(
+                  color: ColorManager.primary,
+                ),
+              );
         });
   }
 
@@ -87,12 +92,16 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   color: ColorManager.black,
                 ),
               ),
-              trailing: Text(
+              subtitle: Text(
                 item.createdAt.toString(),
                 style: TextStyle(
-                  fontSize: 8.0,
+                  fontSize: FontSize.s11,
                   color: ColorManager.lightGrey,
                 ),
+              ),
+              trailing: Icon(
+                Icons.delete,
+                color: ColorManager.danger,
               ),
             ),
           );

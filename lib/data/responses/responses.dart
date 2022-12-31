@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../domain/model/model.dart';
+
 part 'responses.g.dart';
 
 @JsonSerializable()
@@ -34,8 +36,85 @@ class UserResponse {
   @JsonKey(name: "position")
   String? position;
 
-  UserResponse(
-      this.id, this.username, this.email, this.firstName, this.lastName);
+  @JsonKey(name: "contact_number")
+  String? contactNumber;
+
+  @JsonKey(name: "email_verified_at")
+  String? emailVerifiedAt;
+
+  @JsonKey(name: "avatar")
+  String? avatar;
+
+  @JsonKey(name: "is_active")
+  bool? isActive;
+
+  @JsonKey(name: "is_admin")
+  bool? isAdmin;
+
+  @JsonKey(name: "color")
+  String? color;
+
+  @JsonKey(name: "type")
+  String? type;
+
+  @JsonKey(name: "welcome_email_at")
+  DateTime? welcomeEmailAt;
+
+  @JsonKey(name: "deleted_at")
+  String? deletedAt;
+
+  @JsonKey(name: "office_id")
+  int? officeId;
+
+  @JsonKey(name: "last_login_at")
+  String? lastLoginAt;
+
+  @JsonKey(name: "initials")
+  String? initials;
+
+  @JsonKey(name: "fullname")
+  String? fullname;
+
+  @JsonKey(name: "office")
+  OfficeResponse? office;
+
+  @JsonKey(name: "reviews")
+  List<OfficeResponse>? reviews;
+
+  @JsonKey(name: "welcome_sent")
+  bool? welcomeSent;
+
+  @JsonKey(name: "all_roles")
+  List<String>? allRoles;
+
+  @JsonKey(name: "all_permissions")
+  List<String>? allPermissions;
+
+  UserResponse(this.id,
+      this.uuid,
+      this.firstName,
+      this.lastName,
+      this.username,
+      this.email,
+      this.position,
+      this.contactNumber,
+      this.emailVerifiedAt,
+      this.avatar,
+      this.isActive,
+      this.isAdmin,
+      this.color,
+      this.type,
+      this.welcomeEmailAt,
+      this.deletedAt,
+      this.officeId,
+      this.lastLoginAt,
+      this.initials,
+      this.fullname,
+      this.office,
+      this.reviews,
+      this.welcomeSent,
+      this.allRoles,
+      this.allPermissions);
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json);
@@ -89,8 +168,8 @@ class DashboardResponse {
   @JsonKey(name: "endorsed")
   int? endorsed;
 
-  DashboardResponse(
-      this.pipsStatuses, this.total, this.validated, this.endorsed);
+  DashboardResponse(this.pipsStatuses, this.total, this.validated,
+      this.endorsed);
 
   factory DashboardResponse.fromJson(Map<String, dynamic> json) =>
       _$DashboardResponseFromJson(json);
@@ -115,8 +194,8 @@ class PipsStatusResponse {
   @JsonKey(name: "projects_count")
   int projectsCount;
 
-  PipsStatusResponse(
-      this.id, this.name, this.color, this.description, this.projectsCount);
+  PipsStatusResponse(this.id, this.name, this.color, this.description,
+      this.projectsCount);
 
   factory PipsStatusResponse.fromJson(Map<String, dynamic> json) =>
       _$PipsStatusResponseFromJson(json);
@@ -218,8 +297,8 @@ class ProjectsMetaPaginationResponse {
   @JsonKey(name: "last")
   int? last;
 
-  ProjectsMetaPaginationResponse(
-      this.total, this.pageSize, this.current, this.last);
+  ProjectsMetaPaginationResponse(this.total, this.pageSize, this.current,
+      this.last);
 
   factory ProjectsMetaPaginationResponse.fromJson(Map<String, dynamic> json) =>
       _$ProjectsMetaPaginationResponseFromJson(json);
@@ -229,8 +308,8 @@ class ProjectsMetaPaginationResponse {
 
 @JsonSerializable()
 class ProjectResponse {
-  @JsonKey(name: "key")
-  String? key;
+  @JsonKey(name: "id")
+  int? id;
 
   @JsonKey(name: "uuid")
   String? uuid;
@@ -247,7 +326,7 @@ class ProjectResponse {
   @JsonKey(name: "is_locked")
   bool? isLocked;
 
-  ProjectResponse(this.key, this.uuid, this.title, this.office, this.permission,
+  ProjectResponse(this.id, this.uuid, this.title, this.office, this.permission,
       this.isLocked);
 
   factory ProjectResponse.fromJson(Map<String, dynamic> json) =>
@@ -258,21 +337,83 @@ class ProjectResponse {
 
 @JsonSerializable()
 class OfficeResponse {
+  @JsonKey(name: "id")
+  int? id;
+
+  @JsonKey(name: "uuid")
+  String? uuid;
+
   @JsonKey(name: "name")
   String? name;
 
   @JsonKey(name: "acronym")
   String? acronym;
 
+  @JsonKey(name: "head_name")
+  String? headName;
+
+  @JsonKey(name: "head_position")
+  String? headPosition;
+
+  @JsonKey(name: "email")
+  String? email;
+
+  @JsonKey(name: "phone_number")
+  String? phoneNumber;
+
+  @JsonKey(name: "operating_unit_id")
+  int? operatingUnitId;
+
   @JsonKey(name: "color")
   String? color;
 
-  OfficeResponse(this.name, this.acronym, this.color);
+  @JsonKey(name: "agency_id")
+  int? agencyId;
+
+  @JsonKey(name: "projects_count")
+  int? projectsCount;
+
+  @JsonKey(name: "users_count")
+  int? usersCount;
+
+  @JsonKey(name: "operating_unit")
+  OperatingUnitResponse? operatingUnit;
+
+  @JsonKey(name: "permissions")
+  PermissionsResponse? permissions;
+
+  OfficeResponse();
 
   factory OfficeResponse.fromJson(Map<String, dynamic> json) =>
       _$OfficeResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$OfficeResponseToJson(this);
+}
+
+@JsonSerializable()
+class OperatingUnitResponse {
+  @JsonKey(name: "id")
+  int? id;
+
+  @JsonKey(name: "name")
+  String? name;
+
+  @JsonKey(name: "acronym")
+  String? acronym;
+
+  @JsonKey(name: "uacs_code")
+  String? uacsCode;
+
+  @JsonKey(name: "agency_id")
+  int? agencyId;
+
+  OperatingUnitResponse(this.id, this.name, this.acronym, this.uacsCode,
+      this.agencyId);
+
+  factory OperatingUnitResponse.fromJson(Map<String, dynamic> json) =>
+      _$OperatingUnitResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OperatingUnitResponseToJson(this);
 }
 
 @JsonSerializable()
@@ -308,4 +449,24 @@ class PermissionResponse {
       _$PermissionResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$PermissionResponseToJson(this);
+}
+
+
+@JsonSerializable()
+class PermissionsResponse {
+  @JsonKey(name: "view")
+  bool? view;
+
+  @JsonKey(name: "update")
+  bool? update;
+
+  @JsonKey(name: "delete")
+  bool? delete;
+
+  PermissionsResponse(this.view, this.update, this.delete);
+
+  factory PermissionsResponse.fromJson(Map<String, dynamic> json) =>
+      _$PermissionsResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PermissionsResponseToJson(this);
 }

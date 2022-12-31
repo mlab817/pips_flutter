@@ -13,11 +13,13 @@ import 'package:pips_flutter/domain/usecase/forgot_password_usecase.dart';
 import 'package:pips_flutter/domain/usecase/login_usecase.dart';
 import 'package:pips_flutter/domain/usecase/notifications_usecase.dart';
 import 'package:pips_flutter/domain/usecase/projects_usecase.dart';
+import 'package:pips_flutter/domain/usecase/search_usecase.dart';
 import 'package:pips_flutter/presentation/forgot_password/forgot_password_viewmodel.dart';
 import 'package:pips_flutter/presentation/login/login_viewmodel.dart';
 import 'package:pips_flutter/presentation/main/home/home_viewmodel.dart';
 import 'package:pips_flutter/presentation/main/notifications/notifications_viewmodel.dart';
 import 'package:pips_flutter/presentation/main/projects/projects_viewmodel.dart';
+import 'package:pips_flutter/presentation/main/search/search_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final instance = GetIt.instance;
@@ -88,4 +90,22 @@ initProjectsModule() {
     instance.registerFactory<ProjectsViewModel>(
         () => ProjectsViewModel(instance()));
   }
+}
+
+initSearchModule() {
+  if (!GetIt.I.isRegistered<SearchUseCase>()) {
+    instance.registerFactory<SearchUseCase>(() => SearchUseCase(instance()));
+    instance
+        .registerFactory<SearchViewModel>(() => SearchViewModel(instance()));
+  }
+}
+
+resetModules() {
+  instance.reset(dispose: false);
+  initAppModule();
+  initProjectsModule();
+  initNotificationsModule();
+  initDashboardModule();
+  initForgotPasswordModule();
+  initSearchModule();
 }

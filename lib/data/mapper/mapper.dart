@@ -1,5 +1,4 @@
 // convert response into non-nullable objects (model)
-import 'package:dartz/dartz.dart';
 import 'package:pips_flutter/app/extensions.dart';
 import 'package:pips_flutter/data/responses/responses.dart';
 import 'package:pips_flutter/domain/model/model.dart';
@@ -7,6 +6,7 @@ import 'package:pips_flutter/domain/model/model.dart';
 const emptyString = "";
 const zeroInt = 0;
 const oneInt = 1;
+const zeroDouble = 0.0;
 
 extension UserResponseMapper on UserResponse? {
   // convert response from data layer to domain layer
@@ -131,19 +131,22 @@ extension ProjectsResponseMapper on ProjectsResponse {
 extension ProjectResponseMapper on ProjectResponse {
   Project toDomain() {
     return Project(
-        this.id ?? zeroInt,
-        uuid ?? emptyString,
-        title ?? emptyString,
-        office?.toDomain(),
-        permission?.toDomain(),
-        isLocked ?? false);
+      id ?? zeroInt,
+      uuid ?? emptyString,
+      title ?? emptyString,
+      office?.toDomain(),
+      permission?.toDomain(),
+      isLocked ?? false,
+      totalCost?.orZero() ?? zeroDouble,
+      DateTime.parse(updatedAt!),
+    );
   }
 }
 
 extension OfficeResponseMapper on OfficeResponse {
   Office toDomain() {
     return Office(
-      id: this.id.orZero() ?? zeroInt,
+      id: id.orZero() ?? zeroInt,
       uuid: uuid?.orEmpty() ?? emptyString,
       name: name?.orEmpty() ?? emptyString,
       acronym: acronym?.orEmpty() ?? emptyString,
@@ -158,6 +161,7 @@ extension OfficeResponseMapper on OfficeResponse {
       projectsCount: projectsCount?.orZero() ?? zeroInt,
       usersCount: usersCount?.orZero() ?? zeroInt,
       operatingUnit: operatingUnit?.toDomain(),
+      operatingUnitName: operatingUnit?.name,
     );
   }
 }

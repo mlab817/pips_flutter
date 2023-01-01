@@ -1,4 +1,5 @@
 // Convert null values when parsing responses
+import 'package:intl/intl.dart';
 import 'package:pips_flutter/data/mapper/mapper.dart';
 
 // extension on String
@@ -19,6 +20,26 @@ extension NonNullInteger on int? {
       return zeroInt;
     } else {
       return this!;
+    }
+  }
+}
+
+extension NonNullDouble on double? {
+  double orZero() {
+    if (this == null) {
+      return zeroDouble;
+    } else {
+      return this!;
+    }
+  }
+
+  String toMoney() {
+    if (this == null) {
+      return zeroDouble.toString();
+    } else {
+      var formatter = NumberFormat('#,##0.${"#" * 2}');
+
+      return 'PHP ${formatter.format(this!)}';
     }
   }
 }

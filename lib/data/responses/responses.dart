@@ -323,11 +323,18 @@ class ProjectResponse {
   @JsonKey(name: "permission")
   PermissionResponse? permission;
 
+  @JsonKey(name: "total_cost")
+  double? totalCost;
+
   @JsonKey(name: "is_locked")
   bool? isLocked;
 
-  ProjectResponse(this.id, this.uuid, this.title, this.office, this.permission,
-      this.isLocked);
+  @JsonKey(name: "updated_at")
+  String? updatedAt;
+
+  ProjectResponse(this.id, this.uuid, this.title, this.office, this.totalCost,
+      this.permission,
+      this.isLocked, this.updatedAt);
 
   factory ProjectResponse.fromJson(Map<String, dynamic> json) =>
       _$ProjectResponseFromJson(json);

@@ -8,8 +8,6 @@ import 'package:pips_flutter/presentation/common/state_renderer/state_renderer.d
 import 'package:pips_flutter/presentation/common/state_renderer/state_renderer_implementation.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../common/freezed_data_classes.dart';
-
 class ProjectsViewModel extends BaseViewModel
     with ProjectsViewModelInputs, ProjectsViewModelOutputs {
   final StreamController _projectsStreamController =
@@ -21,7 +19,8 @@ class ProjectsViewModel extends BaseViewModel
 
   int _currentPage = 1;
 
-  ProjectsObject _projectsObject = ProjectsObject(<Project>[], 0, 1, 1, 10);
+  final ProjectsObject _projectsObject =
+      ProjectsObject(<Project>[], 0, 1, 1, 10);
 
   void _getProjects() async {
     // inputState.add(
@@ -72,14 +71,10 @@ class ProjectsViewModel extends BaseViewModel
   _updateDataWithResponse(Projects projectsResponse) {
     // add new data from response
     _projectsObject.data.addAll(projectsResponse.data);
-
-    _projectsObject = _projectsObject.copyWith(
-      data: _projectsObject.data,
-      total: projectsResponse.total,
-      current: projectsResponse.current,
-      last: projectsResponse.last,
-      pageSize: projectsResponse.pageSize,
-    );
+    _projectsObject.last = projectsResponse.last;
+    _projectsObject.current = projectsResponse.current;
+    _projectsObject.pageSize = projectsResponse.pageSize;
+    _projectsObject.total = projectsResponse.total;
 
     inputProjects.add(_projectsObject);
   }
@@ -93,4 +88,24 @@ abstract class ProjectsViewModelInputs {
 
 abstract class ProjectsViewModelOutputs {
   Stream get outputProjects;
+}
+
+class ProjectsObject {
+  List<Project> data;
+
+  int total;
+
+  int current;
+
+  int last;
+
+  int pageSize;
+
+  ProjectsObject(
+    this.data,
+    this.total,
+    this.current,
+    this.last,
+    this.pageSize,
+  );
 }

@@ -45,7 +45,6 @@ class _HomePageState extends State<HomePage> {
           end: Alignment.bottomCenter,
           colors: <Color>[
             ColorManager.white,
-            ColorManager.lightOrange,
             ColorManager.primaryOpacity70,
           ],
         ),
@@ -129,6 +128,7 @@ class _HomePageState extends State<HomePage> {
                 .map((status) => Column(
                       children: [
                         CircleAvatar(
+                          backgroundColor: ColorManager.primary,
                           child: Text(
                             status.projectsCount.toString(),
                             style: TextStyle(

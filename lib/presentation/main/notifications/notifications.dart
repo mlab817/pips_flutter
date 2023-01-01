@@ -79,6 +79,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
             ),
             child: ListTile(
               leading: CircleAvatar(
+                backgroundColor: ColorManager.primary,
                 child: Text(
                   sender,
                   style: getBoldStyle(

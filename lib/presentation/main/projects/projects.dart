@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pips_flutter/app/dependency_injection.dart';
+import 'package:pips_flutter/app/extensions.dart';
 import 'package:pips_flutter/data/mapper/mapper.dart';
 import 'package:pips_flutter/domain/model/model.dart';
 import 'package:pips_flutter/presentation/common/state_renderer/state_renderer_implementation.dart';
@@ -119,6 +120,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
             style: getMediumStyle(color: ColorManager.grey),
           ),
           title: Text(projects[index].title),
+          subtitle: Text(projects[index].totalCost?.toMoney() ?? 0.toString()),
           trailing: const Icon(Icons.chevron_right),
           onTap: () {
             // Navigator.pushNamed(context, Routes.projectRoute, arguments: {

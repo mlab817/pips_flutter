@@ -224,11 +224,20 @@ class Project {
 
   bool isLocked;
 
+  double? totalCost;
+
   DateTime? updatedAt;
 
-  Project(this.id, this.uuid, this.title, this.office, this.permission,
-      this.isLocked,
-      {this.updatedAt});
+  Project(
+    this.id,
+    this.uuid,
+    this.title,
+    this.office,
+    this.permission,
+    this.isLocked,
+    this.totalCost,
+    this.updatedAt,
+  );
 }
 
 class Office {
@@ -249,6 +258,7 @@ class Office {
     required this.projectsCount,
     required this.usersCount,
     this.operatingUnit,
+    this.operatingUnitName,
   });
 
   final int id;
@@ -267,6 +277,7 @@ class Office {
   final int projectsCount;
   final int usersCount;
   final OperatingUnit? operatingUnit;
+  final String? operatingUnitName;
 
   factory Office.fromJson(String str) => Office.fromMap(json.decode(str));
 
@@ -339,6 +350,7 @@ class OperatingUnit {
     required this.uacsCode,
     this.imageUrl,
     required this.agencyId,
+    this.agencyName,
   });
 
   final int id;
@@ -347,6 +359,7 @@ class OperatingUnit {
   final String uacsCode;
   final dynamic imageUrl;
   final int agencyId;
+  final String? agencyName;
 
   factory OperatingUnit.fromJson(String str) =>
       OperatingUnit.fromMap(json.decode(str));
@@ -360,6 +373,7 @@ class OperatingUnit {
         uacsCode: json["uacs_code"],
         imageUrl: json["image_url"],
         agencyId: json["agency_id"],
+        agencyName: json["agency"]["name"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -369,6 +383,7 @@ class OperatingUnit {
         "uacs_code": uacsCode,
         "image_url": imageUrl,
         "agency_id": agencyId,
+        "agencyName": agencyName,
       };
 }
 

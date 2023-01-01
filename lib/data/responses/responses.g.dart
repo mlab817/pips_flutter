@@ -248,11 +248,13 @@ ProjectResponse _$ProjectResponseFromJson(Map<String, dynamic> json) =>
       json['office'] == null
           ? null
           : OfficeResponse.fromJson(json['office'] as Map<String, dynamic>),
+      (json['total_cost'] as num?)?.toDouble(),
       json['permission'] == null
           ? null
           : PermissionResponse.fromJson(
               json['permission'] as Map<String, dynamic>),
       json['is_locked'] as bool?,
+      json['updated_at'] as String?,
     );
 
 Map<String, dynamic> _$ProjectResponseToJson(ProjectResponse instance) =>
@@ -262,7 +264,9 @@ Map<String, dynamic> _$ProjectResponseToJson(ProjectResponse instance) =>
       'title': instance.title,
       'office': instance.office,
       'permission': instance.permission,
+      'total_cost': instance.totalCost,
       'is_locked': instance.isLocked,
+      'updated_at': instance.updatedAt,
     };
 
 OfficeResponse _$OfficeResponseFromJson(Map<String, dynamic> json) =>

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:pips_flutter/domain/model/model.dart';
 import 'package:pips_flutter/domain/usecase/notifications_usecase.dart';
@@ -20,7 +19,7 @@ class NotificationsViewModel extends BaseViewModel
     // inputState.add(
     //     LoadingState(stateRendererType: StateRendererType.popupLoadingState));
 
-    (await _notificationsUseCase.execute(Void)).fold(
+    (await _notificationsUseCase.execute(null)).fold(
         (failure) => {
               inputState.add(ErrorState(
                   StateRendererType.fullScreenErrorState, failure.message)),

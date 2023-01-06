@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:pips_flutter/data/network/failure.dart';
 import 'package:pips_flutter/domain/repository/repository.dart';
 import 'package:pips_flutter/domain/usecase/base_usecase.dart';
@@ -12,7 +11,7 @@ class NotificationsUseCase extends BaseUseCase {
   NotificationsUseCase(this._repository);
 
   @override
-  Future<Either<Failure, List<NotificationItem>>> execute(void input) async {
+  Future<Either<Failure, List<NotificationItem>>> execute(dynamic input) async {
     return await _repository.getNotifications();
   }
 }

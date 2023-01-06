@@ -1,5 +1,7 @@
-import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:pips_flutter/app/app_prefs.dart';
 import 'package:pips_flutter/data/data_source/local_data_source.dart';
 import 'package:pips_flutter/data/data_source/remote_data_source.dart';
@@ -20,7 +22,6 @@ import 'package:pips_flutter/presentation/main/home/home_viewmodel.dart';
 import 'package:pips_flutter/presentation/main/notifications/notifications_viewmodel.dart';
 import 'package:pips_flutter/presentation/main/projects/projects_viewmodel.dart';
 import 'package:pips_flutter/presentation/main/search/search_viewmodel.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final instance = GetIt.instance;
 
@@ -33,7 +34,7 @@ Future<void> initAppModule() async {
       .registerLazySingleton<AppPreferences>(() => AppPreferences(instance()));
 
   instance.registerLazySingleton<NetworkInfo>(
-      () => NetworkInfoImplementer(DataConnectionChecker()));
+      () => NetworkInfoImplementer(Connectivity()));
 
   instance.registerLazySingleton<DioFactory>(() => DioFactory(instance()));
 

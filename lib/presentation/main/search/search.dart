@@ -1,12 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+
 import 'package:pips_flutter/domain/model/model.dart';
 import 'package:pips_flutter/presentation/common/state_renderer/state_renderer_implementation.dart';
 import 'package:pips_flutter/presentation/main/search/search_viewmodel.dart';
+import 'package:pips_flutter/presentation/resources/assets_manager.dart';
 import 'package:pips_flutter/presentation/resources/color_manager.dart';
 import 'package:pips_flutter/presentation/resources/strings_manager.dart';
-import 'package:pips_flutter/presentation/resources/styles_manager.dart';
 import 'package:pips_flutter/presentation/resources/values_manager.dart';
 
 import 'package:pips_flutter/app/dependency_injection.dart';
@@ -110,23 +110,24 @@ class _SearchPageState extends State<SearchPage> {
                 SizedBox(
                   height: AppSize.s200,
                   child: ListView.builder(
-                      itemCount: projects.length,
-                      itemBuilder: (context, index) {
-                        final project = projects[index];
-                        return ListTile(
-                          title: Text(project.title),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ProjectView(
-                                  uuid: project.uuid,
-                                  title: project.title,
-                                ),
+                    itemCount: projects.length,
+                    itemBuilder: (context, index) {
+                      final project = projects[index];
+                      return ListTile(
+                        title: Text(project.title),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ProjectView(
+                                uuid: project.uuid,
+                                title: project.title,
                               ),
-                            );
-                          },
-                        );
-                      }),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(AppPadding.p12),
@@ -135,7 +136,7 @@ class _SearchPageState extends State<SearchPage> {
                     height: AppSize.s40,
                     child: ElevatedButton(
                       onPressed: () {
-                        _viewModel.goNextPage();
+                        _viewModel.loadMore();
                       },
                       child: const Text('Load More'),
                     ),
@@ -143,12 +144,12 @@ class _SearchPageState extends State<SearchPage> {
                 )
               ],
             )
-          : const Center(
-              child: Text('No results'),
+          : Center(
+              child: Lottie.asset(JsonAssets.noResult),
             );
     } else {
-      return const Center(
-        child: Text('No results'),
+      return Center(
+        child: Lottie.asset(JsonAssets.noResult),
       );
     }
   }

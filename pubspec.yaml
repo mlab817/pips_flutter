@@ -1,4 +1,4 @@
-name: pips_flutter
+name: PIPS
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -44,7 +44,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   analyzer: ^5.2.0
   dartz: ^0.10.1
-  data_connection_checker_nulls: ^0.0.2
+  connectivity_plus: ^3.0.2
   pretty_dio_logger: ^1.2.0-beta-1
   shared_preferences: ^2.0.15
   device_info_plus: ^4.0.0
@@ -56,6 +56,8 @@ dependencies:
   rxdart: ^0.27.7
   pdfx: ^2.1.1
   intl: ^0.18.0
+  universal_io: ^2.0.4
+  package_info_plus: ^3.0.2
 
 dev_dependencies:
   flutter_test:

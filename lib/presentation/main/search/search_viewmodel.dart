@@ -58,7 +58,7 @@ class SearchViewModel extends BaseViewModel
       _searchInputStreamController.stream.map((data) => data);
 
   @override
-  void goNextPage() {
+  void loadMore() {
     if (_currentPage < _lastPage) {
       _currentPage++;
       _searchProjects();
@@ -114,7 +114,7 @@ abstract class SearchViewModelInputs {
 
   Sink get inputLastPage;
 
-  void goNextPage();
+  void loadMore();
 
   void setSearch(String search);
 

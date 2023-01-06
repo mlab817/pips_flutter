@@ -12,7 +12,7 @@ import '../../app/dependency_injection.dart';
 import '../../domain/model/model.dart';
 
 class OnboardingView extends StatefulWidget {
-  const OnboardingView({Key? key});
+  const OnboardingView({Key? key}) : super(key: key);
 
   @override
   State<OnboardingView> createState() => _OnboardingViewState();
@@ -184,8 +184,8 @@ class _OnboardingViewState extends State<OnboardingView> {
     );
   }
 
-  Widget _getProperCircle(int index, int _currentIndex) {
-    if (index == _currentIndex) {
+  Widget _getProperCircle(int index, int currentIndex) {
+    if (index == currentIndex) {
       return Icon(
         Icons.circle,
         size: AppSize.s12,
@@ -204,7 +204,7 @@ class _OnboardingViewState extends State<OnboardingView> {
 class OnboardingPage extends StatelessWidget {
   final SliderObject _sliderObject;
 
-  const OnboardingPage(this._sliderObject, {Key? key});
+  const OnboardingPage(this._sliderObject, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -235,7 +235,8 @@ class OnboardingPage extends StatelessWidget {
         ),
         SvgPicture.asset(
           _sliderObject.image,
-          width: screenSize.width * 0.65,
+          // width: screenSize.width * 0.65,
+          height: screenSize.height * 0.50,
         ),
       ],
     );

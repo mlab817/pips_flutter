@@ -4,11 +4,13 @@ import 'package:pips_flutter/presentation/about/about.dart';
 import 'package:pips_flutter/presentation/forgot_password/forgot_password.dart';
 import 'package:pips_flutter/presentation/login/login.dart';
 import 'package:pips_flutter/presentation/main/main.dart';
+import 'package:pips_flutter/presentation/main/notifications/notifications.dart';
 import 'package:pips_flutter/presentation/main/profile/profile.dart';
-import 'package:pips_flutter/presentation/main/project/project.dart';
+import 'package:pips_flutter/presentation/main/settings/settings.dart';
 import 'package:pips_flutter/presentation/onboarding/onboarding.dart';
 import 'package:pips_flutter/presentation/register/register.dart';
 import 'package:pips_flutter/presentation/resources/strings_manager.dart';
+import 'package:pips_flutter/presentation/security/security.dart';
 import 'package:pips_flutter/presentation/splash/splash.dart';
 
 class Routes {
@@ -18,9 +20,12 @@ class Routes {
   static const String registerRoute = "/register";
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String mainRoute = "/main";
+  static const String notificationsRoute = "/notifications";
   static const String storeDetailsRoute = "/storeDetails";
   static const String projectRoute = "/project";
   static const String profileRoute = "/profile";
+  static const String settingsRoute = "/settings";
+  static const String securityRoute = "/security";
   static const String aboutRoute = "/about";
 }
 
@@ -50,6 +55,13 @@ class RouteGenerator {
         initProjectsModule();
         initSearchModule();
         return MaterialPageRoute(builder: (_) => const MainView());
+      case Routes.notificationsRoute:
+        initNotificationsModule();
+        return MaterialPageRoute(builder: (_) => const NotificationsPage());
+      case Routes.settingsRoute:
+        return MaterialPageRoute(builder: (_) => const SettingsPage());
+      case Routes.securityRoute:
+        return MaterialPageRoute(builder: (_) => const SecurityPage());
       default:
         return undefinedRoute();
     }

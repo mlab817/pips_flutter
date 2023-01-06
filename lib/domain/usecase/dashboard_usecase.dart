@@ -10,7 +10,7 @@ class DashboardUseCase extends BaseUseCase<void, Dashboard> {
   DashboardUseCase(this._repository);
 
   @override
-  Future<Either<Failure, Dashboard>> execute(void input) async {
+  Future<Either<Failure, Dashboard>> execute(dynamic input) async {
     return await _repository.dashboard();
   }
 }

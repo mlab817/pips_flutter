@@ -1,14 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:pips_flutter/app/dependency_injection.dart';
+import 'package:pips_flutter/domain/model/model.dart';
+import 'package:pips_flutter/presentation/common/state_renderer/state_renderer_implementation.dart';
 import 'package:pips_flutter/presentation/main/home/home_viewmodel.dart';
 import 'package:pips_flutter/presentation/resources/color_manager.dart';
 import 'package:pips_flutter/presentation/resources/font_manager.dart';
+import 'package:pips_flutter/presentation/resources/strings_manager.dart';
 import 'package:pips_flutter/presentation/resources/values_manager.dart';
-
-import '../../../domain/model/model.dart';
-import '../../common/state_renderer/state_renderer_implementation.dart';
-import '../../resources/strings_manager.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -38,31 +37,19 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: <Color>[
-            ColorManager.white,
-            ColorManager.primaryOpacity70,
-          ],
-        ),
-      ),
-      child: StreamBuilder<FlowState>(
-        stream: _viewModel.outputState,
-        builder: (context, snapshot) {
-          return snapshot.data?.getScreenWidget(context, _getContentWidgets(),
-                  () {
-                _viewModel.start();
-              }) ??
-              Center(
-                child: CircularProgressIndicator(
-                  color: ColorManager.primary,
-                ),
-              );
-        },
-      ),
+    return StreamBuilder<FlowState>(
+      stream: _viewModel.outputState,
+      builder: (context, snapshot) {
+        return snapshot.data?.getScreenWidget(context, _getContentWidgets(),
+                () {
+              _viewModel.start();
+            }) ??
+            Center(
+              child: CircularProgressIndicator(
+                color: ColorManager.primary,
+              ),
+            );
+      },
     );
   }
 
@@ -212,102 +199,3 @@ class _HomePageState extends State<HomePage> {
     }
   }
 }
-
-// return Container(
-// padding: const EdgeInsets.all(AppPadding.p8),
-// decoration: BoxDecoration(
-// color: ColorManager.blueGrey,
-// ),
-// child: Column(
-// children: [
-// Container(
-// padding: const EdgeInsets.all(AppPadding.p12),
-// decoration: BoxDecoration(
-// borderRadius: BorderRadius.circular(AppSize.s12),
-// color: ColorManager.white,
-// ),
-// child: Column(
-// children: [
-//
-// const SizedBox(
-// height: AppSize.s8,
-// ),
-// Text(
-// 'ENDORSED',
-// style: TextStyle(
-// fontSize: FontSize.s10,
-// color: ColorManager.primary,
-// ),
-// )
-// ],
-// ),
-// Column(
-// children: [
-// CircleAvatar(
-// child: Text(
-// '20',
-// style: TextStyle(
-// color: ColorManager.white,
-// ),
-// ),
-// ),
-// const SizedBox(
-// height: AppSize.s8,
-// ),
-// Text(
-// 'DROPPED',
-// style: TextStyle(
-// fontSize: FontSize.s10,
-// color: ColorManager.primary,
-// ),
-// )
-// ],
-// ),
-// ],
-// ),
-// ],
-// ),
-// ),
-// const SizedBox(height: AppSize.s12),
-// Container(
-// padding: const EdgeInsets.all(AppPadding.p8),
-// decoration: BoxDecoration(
-// borderRadius: BorderRadius.circular(AppSize.s12),
-// color: ColorManager.white,
-// ),
-// child: Column(
-// children: [
-// _getSection('Latest Projects'),
-// SizedBox(
-// height: AppSize.s280,
-// child: ListView(
-// children: const <Widget>[
-// ListTile(
-// title: Text('Item 1'),
-// trailing: Text('PHP 1,000,000'),
-// ),
-// ListTile(
-// title: Text('Item 2'),
-// trailing: Text('PHP 1,000,000'),
-// ),
-// ListTile(
-// title: Text('Item 3'),
-// trailing: Text('PHP 1,000,000'),
-// ),
-// ListTile(
-// title: Text('Item 4'),
-// trailing: Text('PHP 1,000,000'),
-// ),
-// ListTile(
-// title: Text('Item 5'),
-// trailing: Text('PHP 1,000,000'),
-// ),
-// ],
-// ),
-// ),
-// ],
-// ),
-// ),
-// ],
-// ),
-// );

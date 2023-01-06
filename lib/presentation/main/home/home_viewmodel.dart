@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:pips_flutter/domain/model/model.dart';
 import 'package:pips_flutter/domain/usecase/dashboard_usecase.dart';
@@ -21,7 +20,7 @@ class HomeViewModel extends BaseViewModel
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
-    (await _dashboardUseCase.execute(Void)).fold(
+    (await _dashboardUseCase.execute(null)).fold(
         (failure) => {
               inputState.add(ErrorState(
                   StateRendererType.fullScreenErrorState, failure.message)),

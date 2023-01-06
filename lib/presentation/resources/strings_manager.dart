@@ -36,6 +36,7 @@ class AppStrings {
   static const String registerLabelText = 'Register';
   static const String retryButtonLabelText = 'Try Again';
   static const String emailLabelText = 'Email';
+  static const String logoutLabelText = 'Logout';
 
   // login screen error
   static const String usernameErrorText = 'Username is invalid';
@@ -56,10 +57,14 @@ class AppStrings {
   // appBarTitles
   static const String homeTitle = 'Home';
   static const String projectsTitle = 'Projects';
+  static const String trackerTitle = 'Tracker';
   static const String searchTitle = 'Search';
   static const String notificationsTitle = 'Notifications';
   static const String settingsTitle = 'Settings';
+  static const String securityTitle = 'Security';
 
   // sectionTitle
   static const String statusOfSubmission = 'Status of Submission';
+
+  static const String comingSoon = 'Coming soon!';
 }

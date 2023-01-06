@@ -3,7 +3,6 @@ import 'package:pips_flutter/domain/model/model.dart';
 import 'package:pips_flutter/presentation/common/state_renderer/state_renderer_implementation.dart';
 import 'package:pips_flutter/presentation/main/notifications/notifications_viewmodel.dart';
 import 'package:pips_flutter/presentation/resources/color_manager.dart';
-import 'package:pips_flutter/app/extensions.dart';
 import 'package:pips_flutter/presentation/resources/font_manager.dart';
 import 'package:pips_flutter/presentation/resources/styles_manager.dart';
 

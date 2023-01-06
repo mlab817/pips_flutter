@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pips_flutter/app/app_prefs.dart';
 import 'package:pips_flutter/presentation/resources/routes_manager.dart';
 import 'package:pips_flutter/presentation/resources/values_manager.dart';
-
-import '../../../app/dependency_injection.dart';
+import 'package:pips_flutter/app/dependency_injection.dart';
+import 'package:pips_flutter/app/functions.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -18,7 +19,6 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(AppPadding.p8),
       children: <Widget>[
         ListTile(
           leading: const Icon(Icons.person),
@@ -32,7 +32,9 @@ class _SettingsPageState extends State<SettingsPage> {
           leading: const Icon(Icons.security),
           title: const Text('Security'),
           trailing: const Icon(Icons.chevron_right),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, Routes.securityRoute);
+          },
         ),
         const Divider(),
         ListTile(
@@ -50,6 +52,33 @@ class _SettingsPageState extends State<SettingsPage> {
           // trailing: const Icon(Icons.chevron_right),
           onTap: _logout,
         ),
+        const SizedBox(
+          height: AppSize.s20,
+        ),
+        FutureBuilder<PackageInfo>(
+            future: getPackageInfo(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListTile(
+                  title: Center(
+                      child: Text(
+                    snapshot.data != null
+                        ? "${snapshot.data?.appName} v${snapshot.data?.version}+${snapshot.data?.buildNumber}"
+                        : "Unknown",
+                    style: Theme.of(context).textTheme.bodySmall,
+                  )),
+                );
+              } else {
+                return ListTile(
+                  title: Center(
+                    child: Text(
+                      'Unknown version',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                );
+              }
+            }),
       ],
     );
   }

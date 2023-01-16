@@ -16,6 +16,8 @@ abstract class RemoteDataSource {
 
   Future<ProjectsResponse> searchProjects(
       GetSearchProjectsRequest getSearchProjectsRequest);
+
+  Future<OfficesResponse> getOffices(int page);
 }
 
 class RemoteDataSourceImplementer implements RemoteDataSource {
@@ -60,5 +62,10 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
       GetSearchProjectsRequest getSearchProjectsRequest) async {
     return await _appServiceClient.searchProjects(
         getSearchProjectsRequest.q, getSearchProjectsRequest.page);
+  }
+
+  @override
+  Future<OfficesResponse> getOffices(int page) async {
+    return await _appServiceClient.getOffices(page);
   }
 }

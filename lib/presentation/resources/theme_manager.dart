@@ -74,19 +74,19 @@ ThemeData getApplicationTheme() {
     ),
     // input decoration
     inputDecorationTheme: InputDecorationTheme(
-      contentPadding: const EdgeInsets.all(AppPadding.p8),
+      contentPadding: const EdgeInsets.all(AppPadding.p16),
       hintStyle: getRegularStyle(
-        color: ColorManager.grey1,
+        color: ColorManager.grey,
       ),
       labelStyle: getMediumStyle(
-        color: ColorManager.darkGrey,
+        color: ColorManager.grey,
       ),
       errorStyle: getRegularStyle(
         color: ColorManager.error,
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: ColorManager.grey,
+          color: ColorManager.lightGrey,
           width: AppSize.s1_5,
         ),
         borderRadius: const BorderRadius.all(
@@ -125,6 +125,10 @@ ThemeData getApplicationTheme() {
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       unselectedLabelStyle: TextStyle(fontSize: FontSize.s10),
       selectedLabelStyle: TextStyle(fontSize: FontSize.s10),
+    ),
+    navigationRailTheme: NavigationRailThemeData(
+      selectedIconTheme: IconThemeData(color: ColorManager.primary),
+      unselectedIconTheme: IconThemeData(color: ColorManager.grey1),
     ),
   );
 }

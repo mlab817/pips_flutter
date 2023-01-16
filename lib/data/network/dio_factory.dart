@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:pips_flutter/app/app_prefs.dart';
-import 'package:pips_flutter/app/constant.dart';
+import 'package:pips_flutter/app/config.dart';
+import 'package:pips_flutter/data/data_source/shared_prefs_data_source.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 const String applicationJson = 'application/json';
@@ -12,7 +12,7 @@ const String defaultLanguage = 'language';
 const String bearer = 'Bearer';
 
 class DioFactory {
-  final AppPreferences _appPreferences;
+  final SharedPrefsDataSource _appPreferences;
 
   DioFactory(this._appPreferences);
 
@@ -34,7 +34,7 @@ class DioFactory {
     };
 
     dio.options = BaseOptions(
-      baseUrl: Constant.baseUrl,
+      baseUrl: Config.baseUrl,
       connectTimeout: timeOut,
       receiveTimeout: timeOut,
       headers: headers,

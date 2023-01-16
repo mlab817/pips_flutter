@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:pips_flutter/app/constant.dart';
+import 'package:pips_flutter/app/config.dart';
 import 'package:pips_flutter/data/responses/responses.dart';
 import 'package:retrofit/http.dart';
 
 part 'app_api.g.dart';
 
 // annotation allows autogenerate of .g.dart files
-@RestApi(baseUrl: Constant.baseUrl)
+@RestApi(baseUrl: Config.baseUrl)
 abstract class AppServiceClient {
   factory AppServiceClient(Dio dio, {String baseUrl}) = _AppServiceClient;
 
@@ -32,4 +32,7 @@ abstract class AppServiceClient {
   @GET("/projects")
   Future<ProjectsResponse> searchProjects(
       @Query("q") String q, @Query("page") int page);
+
+  @GET("/offices")
+  Future<OfficesResponse> getOffices(@Query("page") int page);
 }

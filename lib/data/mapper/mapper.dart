@@ -44,7 +44,7 @@ extension UserResponseMapper on UserResponse? {
         fullname: this?.fullname?.orEmpty() ?? emptyString,
         office: this?.office?.toDomain(),
         reviews: officesForReview,
-        // mapped offices for review
+        // mapped offices.dart for review
         welcomeSent: this?.welcomeSent ?? false,
         allRoles: this?.allRoles,
         allPermissions: this?.allPermissions);
@@ -190,10 +190,25 @@ extension PermissionResponseMapper on PermissionResponse {
 extension OperatingUnitResponseMapper on OperatingUnitResponse {
   OperatingUnit toDomain() {
     return OperatingUnit(
-        id: this.id?.orZero() ?? zeroInt,
+        id: id?.orZero() ?? zeroInt,
         name: name?.orEmpty() ?? emptyString,
         acronym: acronym?.orEmpty() ?? emptyString,
         uacsCode: uacsCode?.orEmpty() ?? emptyString,
         agencyId: agencyId?.orZero() ?? zeroInt);
+  }
+}
+
+extension OfficesResponseMapper on OfficesResponse {
+  Offices toDomain() {
+    List<Office> offices =
+        data.map((office) => office.toDomain()).cast<Office>().toList();
+
+    return Offices(
+      offices,
+      meta.pagination.total.orZero(),
+      meta.pagination.current.orZero(),
+      meta.pagination.last.orZero(),
+      meta.pagination.pageSize.orZero(),
+    );
   }
 }

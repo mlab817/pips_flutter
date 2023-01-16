@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:pips_flutter/app/app_prefs.dart';
 import 'package:pips_flutter/app/dependency_injection.dart';
+import 'package:pips_flutter/data/data_source/shared_prefs_data_source.dart';
 import 'package:pips_flutter/presentation/main/home/home.dart';
 import 'package:pips_flutter/presentation/main/notifications/notifications.dart';
 import 'package:pips_flutter/presentation/main/projects/projects.dart';
@@ -10,9 +10,12 @@ import 'package:pips_flutter/presentation/main/search/search.dart';
 import 'package:pips_flutter/presentation/main/settings/settings.dart';
 import 'package:pips_flutter/presentation/resources/assets_manager.dart';
 import 'package:pips_flutter/presentation/resources/color_manager.dart';
-import 'package:pips_flutter/presentation/resources/routes_manager.dart';
+import 'package:pips_flutter/app/routes.dart';
 import 'package:pips_flutter/presentation/resources/strings_manager.dart';
 import 'package:pips_flutter/presentation/resources/values_manager.dart';
+import 'package:universal_io/prefer_universal/io.dart';
+
+import 'offices/offices.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -22,11 +25,13 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  final AppPreferences _appPreferences = instance<AppPreferences>();
+  final SharedPrefsDataSource _appPreferences =
+      instance<SharedPrefsDataSource>();
 
   final List<Widget> _pages = [
     const HomePage(),
     const ProjectsPage(),
+    const OfficesView(),
     const SearchPage(),
     const NotificationsPage(),
     const SettingsPage(),
@@ -35,6 +40,7 @@ class _MainViewState extends State<MainView> {
   final List<String> _titles = [
     AppStrings.homeTitle,
     AppStrings.projectsTitle,
+    AppStrings.officesTitle,
     AppStrings.searchTitle,
     AppStrings.notificationsTitle,
     AppStrings.settingsTitle,
@@ -59,7 +65,57 @@ class _MainViewState extends State<MainView> {
           ),
         ],
       ),
-      body: _pages[_currentIndex],
+      body: Row(
+        children: [
+          NavigationRail(
+            destinations: const <NavigationRailDestination>[
+              NavigationRailDestination(
+                icon: Icon(Icons.home),
+                selectedIcon: Icon(Icons.home),
+                label: Text('Dashboard'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.view_module),
+                selectedIcon: Icon(Icons.view_module),
+                label: Text('Projects'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.local_convenience_store_rounded),
+                selectedIcon: Icon(Icons.local_convenience_store_rounded),
+                label: Text(AppStrings.officesTitle),
+              ),
+              // NavigationRailDestination(
+              //   icon: Icon(Icons.monitor),
+              //   selectedIcon: Icon(Icons.monitor),
+              //   label: Text('Tracker'),
+              // ),
+              NavigationRailDestination(
+                icon: Icon(Icons.search),
+                selectedIcon: Icon(Icons.search),
+                label: Text('Search'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.notifications),
+                selectedIcon: Icon(Icons.notifications),
+                label: Text('Notifications'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.settings),
+                selectedIcon: Icon(Icons.settings),
+                label: Text('Settings'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.exit_to_app),
+                selectedIcon: Icon(Icons.exit_to_app),
+                label: Text('Logout'),
+              ),
+            ],
+            selectedIndex: _currentIndex,
+            onDestinationSelected: _onTap,
+          ),
+          Expanded(child: _pages[_currentIndex]),
+        ],
+      ),
       drawer: kIsWeb
           ? Drawer(
               child: ListView(children: <Widget>[
@@ -93,6 +149,16 @@ class _MainViewState extends State<MainView> {
                   onTap: () {
                     setState(() {
                       _currentIndex = 1;
+                    });
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.local_convenience_store_rounded),
+                  title: const Text(AppStrings.officesTitle),
+                  onTap: () {
+                    setState(() {
+                      _currentIndex = 2;
                     });
                     Navigator.pop(context);
                   },
@@ -133,7 +199,7 @@ class _MainViewState extends State<MainView> {
               ]),
             )
           : null,
-      bottomNavigationBar: !kIsWeb
+      bottomNavigationBar: !kIsWeb && !Platform.isMacOS
           ? Container(
               decoration: BoxDecoration(
                 boxShadow: [

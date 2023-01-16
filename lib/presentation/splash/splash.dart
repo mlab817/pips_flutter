@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import 'package:pips_flutter/app/app_prefs.dart';
 import 'package:pips_flutter/app/dependency_injection.dart';
+import 'package:pips_flutter/data/data_source/shared_prefs_data_source.dart';
 import 'package:pips_flutter/presentation/resources/assets_manager.dart';
 import 'package:pips_flutter/presentation/resources/color_manager.dart';
-import 'package:pips_flutter/presentation/resources/routes_manager.dart';
+import 'package:pips_flutter/app/routes.dart';
 import 'package:pips_flutter/presentation/resources/values_manager.dart';
 
 class SplashView extends StatefulWidget {
@@ -18,7 +18,8 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  final AppPreferences _appPreferences = instance<AppPreferences>();
+  final SharedPrefsDataSource _appPreferences =
+      instance<SharedPrefsDataSource>();
 
   Timer? _timer;
 
@@ -32,7 +33,7 @@ class _SplashViewState extends State<SplashView> {
 
   // redirect user based on status isUserLoggedIn
   void _goNext() {
-    _appPreferences.isUserLoggedIn().then((isUserLoggedIn) => {
+    _appPreferences.getIsUserLoggedIn().then((isUserLoggedIn) => {
           if (isUserLoggedIn)
             {Navigator.pushReplacementNamed(context, Routes.mainRoute)}
           else

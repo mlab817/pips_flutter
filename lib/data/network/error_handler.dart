@@ -31,7 +31,7 @@ class ErrorHandler implements Exception {
   ErrorHandler.handle(dynamic error) {
     if (error is DioError) {
       // error from API response
-      _handleError(error);
+      failure = _handleError(error);
     } else {
       // default error
       print("Internal Error: ${error.toString()}");

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pips_flutter/app/app_prefs.dart';
+import 'package:pips_flutter/data/data_source/shared_prefs_data_source.dart';
 import 'package:pips_flutter/presentation/onboarding/onboarding_viewmodel.dart';
 import 'package:pips_flutter/presentation/resources/color_manager.dart';
-import 'package:pips_flutter/presentation/resources/routes_manager.dart';
+import 'package:pips_flutter/app/routes.dart';
 import 'package:pips_flutter/presentation/resources/strings_manager.dart';
 import 'package:pips_flutter/presentation/resources/values_manager.dart';
 
@@ -19,7 +19,8 @@ class OnboardingView extends StatefulWidget {
 }
 
 class _OnboardingViewState extends State<OnboardingView> {
-  final AppPreferences _appPreferences = instance<AppPreferences>();
+  final SharedPrefsDataSource _appPreferences =
+      instance<SharedPrefsDataSource>();
   final PageController _pageController = PageController();
 
   final OnBoardingViewModel _viewModel = OnBoardingViewModel();

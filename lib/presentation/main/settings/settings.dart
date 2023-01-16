@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:pips_flutter/app/app_prefs.dart';
-import 'package:pips_flutter/presentation/resources/routes_manager.dart';
+import 'package:pips_flutter/app/routes.dart';
+import 'package:pips_flutter/data/data_source/shared_prefs_data_source.dart';
 import 'package:pips_flutter/presentation/resources/values_manager.dart';
 import 'package:pips_flutter/app/dependency_injection.dart';
 import 'package:pips_flutter/app/functions.dart';
@@ -14,7 +14,8 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  final AppPreferences _appPreferences = instance<AppPreferences>();
+  final SharedPrefsDataSource _appPreferences =
+      instance<SharedPrefsDataSource>();
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,4 @@
+/// This file determines the screen to show to the user depending on the status
 import 'package:flutter/material.dart';
 import 'package:pips_flutter/data/mapper/mapper.dart';
 import 'package:pips_flutter/presentation/resources/strings_manager.dart';
@@ -14,6 +15,8 @@ class LoadingState extends FlowState {
   StateRendererType stateRendererType;
   String message;
 
+  // required means that it has to be passed on initialization
+  // while message can have a null value
   LoadingState({
     required this.stateRendererType,
     String? message,
@@ -30,10 +33,8 @@ class ErrorState extends FlowState {
   StateRendererType stateRendererType;
   String message;
 
-  ErrorState(
-    this.stateRendererType,
-    this.message,
-  );
+  ErrorState(this.stateRendererType,
+      this.message,);
 
   @override
   String getMessage() => message;
@@ -80,11 +81,10 @@ class SuccessState extends FlowState {
 }
 
 extension FlowStateExtension on FlowState {
-  Widget getScreenWidget(
-    BuildContext context,
-    Widget contentScreenWidget,
-    Function retryActionFunction,
-  ) {
+  Widget getScreenWidget(BuildContext context,
+      Widget contentScreenWidget, // passed screen content
+      Function retryActionFunction, // function for when loading fails
+      ) {
     switch (runtimeType) {
       case LoadingState:
         {
@@ -94,7 +94,7 @@ extension FlowStateExtension on FlowState {
             // return the content ui of the screen
             return contentScreenWidget;
           } else // StateRendererType.FULL_SCREEN_LOADING_STATE
-          {
+              {
             return StateRenderer(
                 stateRendererType: getStateRendererType(),
                 message: getMessage(),
@@ -117,7 +117,7 @@ extension FlowStateExtension on FlowState {
             // return the content ui of the screen
             return contentScreenWidget;
           } else // StateRendererType.FULL_SCREEN_ERROR_STATE
-          {
+              {
             return StateRenderer(
                 stateRendererType: getStateRendererType(),
                 message: getMessage(),
@@ -143,16 +143,18 @@ extension FlowStateExtension on FlowState {
     }
   }
 
-  showPopUp(
-      BuildContext context, StateRendererType stateRendererType, String message,
+  showPopUp(BuildContext context, StateRendererType stateRendererType,
+      String message,
       {String title = emptyString}) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => showDialog(
-        context: context,
-        builder: (BuildContext context) => StateRenderer(
-              stateRendererType: stateRendererType,
-              message: message,
-              retryActionFunction: () {},
-            )));
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
+        showDialog(
+            context: context,
+            builder: (BuildContext context) =>
+                StateRenderer(
+                  stateRendererType: stateRendererType,
+                  message: message,
+                  retryActionFunction: () {},
+                )));
   }
 
   void dismissDialog(BuildContext context) {
@@ -162,5 +164,7 @@ extension FlowStateExtension on FlowState {
   }
 
   bool _isThereCurrentDialogShowing(BuildContext context) =>
-      ModalRoute.of(context)?.isCurrent != true;
+      ModalRoute
+          .of(context)
+          ?.isCurrent != true;
 }

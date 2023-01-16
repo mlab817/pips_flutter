@@ -90,7 +90,8 @@ class UserResponse {
   @JsonKey(name: "all_permissions")
   List<String>? allPermissions;
 
-  UserResponse(this.id,
+  UserResponse(
+      this.id,
       this.uuid,
       this.firstName,
       this.lastName,
@@ -168,8 +169,8 @@ class DashboardResponse {
   @JsonKey(name: "endorsed")
   int? endorsed;
 
-  DashboardResponse(this.pipsStatuses, this.total, this.validated,
-      this.endorsed);
+  DashboardResponse(
+      this.pipsStatuses, this.total, this.validated, this.endorsed);
 
   factory DashboardResponse.fromJson(Map<String, dynamic> json) =>
       _$DashboardResponseFromJson(json);
@@ -194,8 +195,8 @@ class PipsStatusResponse {
   @JsonKey(name: "projects_count")
   int projectsCount;
 
-  PipsStatusResponse(this.id, this.name, this.color, this.description,
-      this.projectsCount);
+  PipsStatusResponse(
+      this.id, this.name, this.color, this.description, this.projectsCount);
 
   factory PipsStatusResponse.fromJson(Map<String, dynamic> json) =>
       _$PipsStatusResponseFromJson(json);
@@ -260,7 +261,7 @@ class ProjectsResponse {
   List<ProjectResponse> data;
 
   @JsonKey(name: "meta")
-  ProjectsMetaResponse meta;
+  MetaResponse meta;
 
   ProjectsResponse(this.data, this.meta);
 
@@ -271,20 +272,20 @@ class ProjectsResponse {
 }
 
 @JsonSerializable()
-class ProjectsMetaResponse {
+class MetaResponse {
   @JsonKey(name: "pagination")
-  ProjectsMetaPaginationResponse pagination;
+  MetaPaginationResponse pagination;
 
-  ProjectsMetaResponse(this.pagination);
+  MetaResponse(this.pagination);
 
-  factory ProjectsMetaResponse.fromJson(Map<String, dynamic> json) =>
-      _$ProjectsMetaResponseFromJson(json);
+  factory MetaResponse.fromJson(Map<String, dynamic> json) =>
+      _$MetaResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ProjectsMetaResponseToJson(this);
+  Map<String, dynamic> toJson() => _$MetaResponseToJson(this);
 }
 
 @JsonSerializable()
-class ProjectsMetaPaginationResponse {
+class MetaPaginationResponse {
   @JsonKey(name: "total")
   int? total;
 
@@ -297,13 +298,12 @@ class ProjectsMetaPaginationResponse {
   @JsonKey(name: "last")
   int? last;
 
-  ProjectsMetaPaginationResponse(this.total, this.pageSize, this.current,
-      this.last);
+  MetaPaginationResponse(this.total, this.pageSize, this.current, this.last);
 
-  factory ProjectsMetaPaginationResponse.fromJson(Map<String, dynamic> json) =>
-      _$ProjectsMetaPaginationResponseFromJson(json);
+  factory MetaPaginationResponse.fromJson(Map<String, dynamic> json) =>
+      _$MetaPaginationResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ProjectsMetaPaginationResponseToJson(this);
+  Map<String, dynamic> toJson() => _$MetaPaginationResponseToJson(this);
 }
 
 @JsonSerializable()
@@ -333,8 +333,7 @@ class ProjectResponse {
   String? updatedAt;
 
   ProjectResponse(this.id, this.uuid, this.title, this.office, this.totalCost,
-      this.permission,
-      this.isLocked, this.updatedAt);
+      this.permission, this.isLocked, this.updatedAt);
 
   factory ProjectResponse.fromJson(Map<String, dynamic> json) =>
       _$ProjectResponseFromJson(json);
@@ -414,8 +413,8 @@ class OperatingUnitResponse {
   @JsonKey(name: "agency_id")
   int? agencyId;
 
-  OperatingUnitResponse(this.id, this.name, this.acronym, this.uacsCode,
-      this.agencyId);
+  OperatingUnitResponse(
+      this.id, this.name, this.acronym, this.uacsCode, this.agencyId);
 
   factory OperatingUnitResponse.fromJson(Map<String, dynamic> json) =>
       _$OperatingUnitResponseFromJson(json);
@@ -458,7 +457,6 @@ class PermissionResponse {
   Map<String, dynamic> toJson() => _$PermissionResponseToJson(this);
 }
 
-
 @JsonSerializable()
 class PermissionsResponse {
   @JsonKey(name: "view")
@@ -476,4 +474,20 @@ class PermissionsResponse {
       _$PermissionsResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$PermissionsResponseToJson(this);
+}
+
+@JsonSerializable()
+class OfficesResponse {
+  @JsonKey(name: "data")
+  List<OfficeResponse> data;
+
+  @JsonKey(name: "meta")
+  MetaResponse meta;
+
+  OfficesResponse(this.data, this.meta);
+
+  factory OfficesResponse.fromJson(Map<String, dynamic> json) =>
+      _$OfficesResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OfficesResponseToJson(this);
 }

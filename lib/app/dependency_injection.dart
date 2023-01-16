@@ -1,8 +1,10 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pips_flutter/app/config.dart';
+import 'package:pips_flutter/data/data_source/shared_prefs_data_source.dart';
+import 'package:pips_flutter/presentation/main/offices/offices_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:pips_flutter/app/app_prefs.dart';
 import 'package:pips_flutter/data/data_source/local_data_source.dart';
 import 'package:pips_flutter/data/data_source/remote_data_source.dart';
 import 'package:pips_flutter/data/network/app_api.dart';
@@ -23,15 +25,24 @@ import 'package:pips_flutter/presentation/main/notifications/notifications_viewm
 import 'package:pips_flutter/presentation/main/projects/projects_viewmodel.dart';
 import 'package:pips_flutter/presentation/main/search/search_viewmodel.dart';
 
+import '../domain/usecase/offices_usecase.dart';
+
 final instance = GetIt.instance;
 
+/// note: order matters for registration
+/// if another singleton depends on another,
+/// it should be registered first
 Future<void> initAppModule() async {
   final sharedPrefs = await SharedPreferences.getInstance();
 
   instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
 
-  instance
-      .registerLazySingleton<AppPreferences>(() => AppPreferences(instance()));
+  instance.registerLazySingleton<SharedPrefsDataSource>(
+      () => SharedPrefsDataSourceImplementer(instance()));
+
+  final config = Config();
+
+  instance.registerLazySingleton<Config>(() => config);
 
   instance.registerLazySingleton<NetworkInfo>(
       () => NetworkInfoImplementer(Connectivity()));
@@ -39,6 +50,7 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<DioFactory>(() => DioFactory(instance()));
 
   final dio = await instance<DioFactory>().getDio();
+
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
 
   instance.registerLazySingleton<LocalDataSource>(
@@ -90,6 +102,14 @@ initProjectsModule() {
         .registerFactory<ProjectsUseCase>(() => ProjectsUseCase(instance()));
     instance.registerFactory<ProjectsViewModel>(
         () => ProjectsViewModel(instance()));
+  }
+}
+
+initOfficesModule() {
+  if (!GetIt.I.isRegistered<OfficesUseCase>()) {
+    instance.registerFactory<OfficesUseCase>(() => OfficesUseCase(instance()));
+    instance
+        .registerFactory<OfficesViewModel>(() => OfficesViewModel(instance()));
   }
 }
 

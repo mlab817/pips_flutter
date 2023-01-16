@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:pips_flutter/data/data_source/local_data_source.dart';
+import 'package:pips_flutter/data/data_source/shared_prefs_data_source.dart';
 import 'package:pips_flutter/data/network/error_handler.dart';
 
 import 'package:pips_flutter/data/network/failure.dart';
@@ -122,5 +123,19 @@ class RepositoryImplementer extends Repository {
   }
 
 // implement cache fetching before hitting backend
+  @override
+  Future<Either<Failure, Offices>> getOffices(int page) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final OfficesResponse response =
+            await _remoteDataSource.getOffices(page);
 
+        return Right(response.toDomain());
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      return Left(DataSource.noInternetCorrection.getFailure());
+    }
+  }
 }

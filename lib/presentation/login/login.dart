@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pips_flutter/app/app_prefs.dart';
 import 'package:pips_flutter/app/dependency_injection.dart';
+import 'package:pips_flutter/data/data_source/shared_prefs_data_source.dart';
 import 'package:pips_flutter/presentation/common/state_renderer/state_renderer_implementation.dart';
 import 'package:pips_flutter/presentation/common/widgets/responsive_box.dart';
 import 'package:pips_flutter/presentation/login/login_viewmodel.dart';
 import 'package:pips_flutter/presentation/resources/assets_manager.dart';
 import 'package:pips_flutter/presentation/resources/color_manager.dart';
-import 'package:pips_flutter/presentation/resources/routes_manager.dart';
+import 'package:pips_flutter/app/routes.dart';
 import 'package:pips_flutter/presentation/resources/strings_manager.dart';
 import 'package:pips_flutter/presentation/resources/values_manager.dart';
 
@@ -20,7 +20,8 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final AppPreferences _appPreferences = instance<AppPreferences>();
+  final SharedPrefsDataSource _appPreferences =
+      instance<SharedPrefsDataSource>();
 
   final LoginViewModel _viewModel =
       instance<LoginViewModel>(); // pass in use case later

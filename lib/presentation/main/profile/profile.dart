@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pips_flutter/app/app_prefs.dart';
 import 'package:pips_flutter/app/dependency_injection.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pips_flutter/data/data_source/shared_prefs_data_source.dart';
 
 import '../../../domain/model/model.dart';
 
@@ -13,7 +12,8 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  final AppPreferences _appPreferences = instance<AppPreferences>();
+  final SharedPrefsDataSource _appPreferences =
+      instance<SharedPrefsDataSource>();
 
   User? _user;
 

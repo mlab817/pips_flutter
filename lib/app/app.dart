@@ -1,5 +1,6 @@
+/// entry point of the application
 import 'package:flutter/material.dart';
-import 'package:pips_flutter/presentation/resources/routes_manager.dart';
+import 'package:pips_flutter/app/routes.dart';
 import 'package:pips_flutter/presentation/resources/theme_manager.dart';
 
 class MyApp extends StatefulWidget {

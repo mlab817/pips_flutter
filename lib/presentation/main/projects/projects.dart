@@ -18,7 +18,8 @@ class ProjectsPage extends StatefulWidget {
   State<ProjectsPage> createState() => _ProjectsPageState();
 }
 
-class _ProjectsPageState extends State<ProjectsPage> {
+class _ProjectsPageState extends State<ProjectsPage>
+    with AutomaticKeepAliveClientMixin {
   final ProjectsViewModel _viewModel = instance<ProjectsViewModel>();
 
   late ScrollController _scrollController;
@@ -65,29 +66,44 @@ class _ProjectsPageState extends State<ProjectsPage> {
       }
     });
 
-    return StreamBuilder<FlowState>(
-      stream: _viewModel.outputState,
-      builder: (context, snapshot) {
-        return snapshot.data?.getScreenWidget(context, _getContentWidget(), () {
-              _viewModel.start();
-            }) ??
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(
-                    color: ColorManager.primary,
-                  ),
-                  const SizedBox(height: AppSize.s8),
-                  Text(
-                    AppStrings.loading,
-                    style: TextStyle(color: ColorManager.primary),
-                  ),
-                ],
-              ),
-            );
-      },
+    return Row(
+      children: [
+        SizedBox(
+          width: AppSize.s300,
+          child: Column(
+            children: const [
+              Text('Office Menu'),
+            ],
+          ),
+        ),
+        Expanded(
+          child: StreamBuilder<FlowState>(
+            stream: _viewModel.outputState,
+            builder: (context, snapshot) {
+              return snapshot.data
+                      ?.getScreenWidget(context, _getContentWidget(), () {
+                    _viewModel.start();
+                  }) ??
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(
+                          color: ColorManager.primary,
+                        ),
+                        const SizedBox(height: AppSize.s8),
+                        Text(
+                          AppStrings.loading,
+                          style: TextStyle(color: ColorManager.primary),
+                        ),
+                      ],
+                    ),
+                  );
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -142,4 +158,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

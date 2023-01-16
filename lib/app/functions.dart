@@ -1,3 +1,4 @@
+/// functions that can be called anywhere in the app
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:universal_io/io.dart';
 

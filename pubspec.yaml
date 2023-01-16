@@ -1,4 +1,4 @@
-name: PIPS
+name: pips_flutter
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -36,7 +36,7 @@ dependencies:
   flutter_svg: ^1.1.6
   retrofit: ^3.3.1
   retrofit_generator: ^4.2.0
-  json_annotation: ^4.1.0
+  json_annotation: ^4.7.0
 
   google_fonts: ^3.0.1
   # The following adds the Cupertino Icons font to your application.
@@ -54,7 +54,6 @@ dependencies:
   lottie: ^2.1.0
   carousel_slider: ^4.2.1
   rxdart: ^0.27.7
-  pdfx: ^2.1.1
   intl: ^0.18.0
   universal_io: ^2.0.4
   package_info_plus: ^3.0.2

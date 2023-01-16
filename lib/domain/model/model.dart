@@ -439,3 +439,14 @@ class Pivot {
         "office_id": officeId,
       };
 }
+
+class Offices {
+  List<Office> data;
+
+  int total;
+  int current;
+  int last;
+  int pageSize;
+
+  Offices(this.data, this.total, this.current, this.last, this.pageSize);
+}

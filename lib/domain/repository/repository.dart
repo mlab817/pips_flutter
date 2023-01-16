@@ -20,4 +20,6 @@ abstract class Repository {
 
   Future<Either<Failure, Projects>> searchProjects(
       GetSearchProjectsRequest getSearchProjectsRequest);
+
+  Future<Either<Failure, Offices>> getOffices(int page);
 }

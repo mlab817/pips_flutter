@@ -4,7 +4,7 @@ import 'package:pips_flutter/presentation/resources/color_manager.dart';
 import 'package:pips_flutter/presentation/resources/styles_manager.dart';
 import 'package:pips_flutter/presentation/resources/values_manager.dart';
 
-import '../resources/routes_manager.dart';
+import '../../app/routes.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);

@@ -200,7 +200,7 @@ ProjectsResponse _$ProjectsResponseFromJson(Map<String, dynamic> json) =>
       (json['data'] as List<dynamic>)
           .map((e) => ProjectResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      ProjectsMetaResponse.fromJson(json['meta'] as Map<String, dynamic>),
+      MetaResponse.fromJson(json['meta'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ProjectsResponseToJson(ProjectsResponse instance) =>
@@ -209,30 +209,27 @@ Map<String, dynamic> _$ProjectsResponseToJson(ProjectsResponse instance) =>
       'meta': instance.meta,
     };
 
-ProjectsMetaResponse _$ProjectsMetaResponseFromJson(
-        Map<String, dynamic> json) =>
-    ProjectsMetaResponse(
-      ProjectsMetaPaginationResponse.fromJson(
+MetaResponse _$MetaResponseFromJson(Map<String, dynamic> json) => MetaResponse(
+      MetaPaginationResponse.fromJson(
           json['pagination'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$ProjectsMetaResponseToJson(
-        ProjectsMetaResponse instance) =>
+Map<String, dynamic> _$MetaResponseToJson(MetaResponse instance) =>
     <String, dynamic>{
       'pagination': instance.pagination,
     };
 
-ProjectsMetaPaginationResponse _$ProjectsMetaPaginationResponseFromJson(
+MetaPaginationResponse _$MetaPaginationResponseFromJson(
         Map<String, dynamic> json) =>
-    ProjectsMetaPaginationResponse(
+    MetaPaginationResponse(
       json['total'] as int?,
       json['pageSize'] as int?,
       json['current'] as int?,
       json['last'] as int?,
     );
 
-Map<String, dynamic> _$ProjectsMetaPaginationResponseToJson(
-        ProjectsMetaPaginationResponse instance) =>
+Map<String, dynamic> _$MetaPaginationResponseToJson(
+        MetaPaginationResponse instance) =>
     <String, dynamic>{
       'total': instance.total,
       'pageSize': instance.pageSize,
@@ -369,4 +366,18 @@ Map<String, dynamic> _$PermissionsResponseToJson(
       'view': instance.view,
       'update': instance.update,
       'delete': instance.delete,
+    };
+
+OfficesResponse _$OfficesResponseFromJson(Map<String, dynamic> json) =>
+    OfficesResponse(
+      (json['data'] as List<dynamic>)
+          .map((e) => OfficeResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      MetaResponse.fromJson(json['meta'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$OfficesResponseToJson(OfficesResponse instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'meta': instance.meta,
     };

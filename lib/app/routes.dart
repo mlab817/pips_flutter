@@ -1,3 +1,4 @@
+/// the routes of the application
 import 'package:flutter/material.dart';
 import 'package:pips_flutter/app/dependency_injection.dart';
 import 'package:pips_flutter/presentation/about/about.dart';
@@ -54,6 +55,7 @@ class RouteGenerator {
         initNotificationsModule();
         initProjectsModule();
         initSearchModule();
+        initOfficesModule();
         return MaterialPageRoute(builder: (_) => const MainView());
       case Routes.notificationsRoute:
         initNotificationsModule();
